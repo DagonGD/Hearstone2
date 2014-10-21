@@ -12,25 +12,48 @@ namespace Hearstone2
 	{
 		static void Main(string[] args)
 		{
-			var table = new Table
-				{
-					Player1 = new Druid()
-						{
-							Deck = new List<Card> {new BluegillWarrior()}
-						},
-					Player2 = new Mage
-						{
-							Deck = new List<Card> {new Fireball()}
-						}
-				};
+		    var table = new Table(
+		        new Druid
+		            {
+		                Deck = new List<Card> {new BluegillWarrior()}
+		            },
+		        new Mage
+		            {
+		                Deck = new List<Card> {new Fireball()}
+		            });
 
-			table.Player1.DrawCard();
-			table.Player1.PlayCard(table.Player1.Hand.First());
+			PlayerTurn(table.Player1);
+		    PlayerTurn(table.Player2);
 
-			table.Player2.DrawCard();
-			table.Player2.PlayCard(table.Player2.Hand.First(), table.Player1.PlacedMinions.First());
-
-			table.Cleanup();
+		    table.Cleanup();
 		}
+
+	    private static void PlayerTurn(Player player)
+	    {
+            player.DrawCard();
+	        var firstCard = player.Hand.FirstOrDefault();
+
+            if(firstCard is Minion)
+	        {
+                player.PlayCard(firstCard);
+                return;
+	        }
+
+            if (firstCard is ISpelWithoutTarget)
+            {
+                ((ISpelWithoutTarget)firstCard).Play();
+                return;
+            }
+
+            if (firstCard is IMinionTargetSpell)
+            {
+                var target = player.Opponent.PlacedMinions.FirstOrDefault();
+
+                if (target != null)
+                {
+                    ((IMinionTargetSpell) firstCard).Play(target);
+                }
+            }
+	    }
 	}
 }

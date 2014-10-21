@@ -36,16 +36,5 @@ namespace Hearstone2.Core.Players
 				return;
 			}
 		}
-
-		public void PlayCard(Card card, Minion target)
-		{
-			if (card is Spell)
-			{
-				var spell = card as Spell;
-				spell.Play(target);
-				Hand.Remove(card);
-				return;
-			}
-		}
 	}
 }
