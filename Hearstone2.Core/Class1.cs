@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hearstone2.Core
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-		}
-	}
+    public class Class1
+    {
+    }
 }
