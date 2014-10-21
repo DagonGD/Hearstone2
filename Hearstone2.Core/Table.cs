@@ -18,8 +18,8 @@ namespace Hearstone2.Core
 
 		public void Cleanup()
 		{
-			Player1.PlacedMinions.RemoveAll(m => m.CurrentHealth <= 0);
-			Player2.PlacedMinions.RemoveAll(m => m.CurrentHealth <= 0);
+			Player1.PlacedMinions.RemoveAll(m => m.Health <= 0);
+			Player2.PlacedMinions.RemoveAll(m => m.Health <= 0);
 		}
 	}
 }

@@ -12,8 +12,8 @@
 			get { return 8; }
 		}
 
-		public override int Damage { get { return 8; } }
-		public override int Health { get { return 8; } }
+		public override int BaseDamage { get { return 8; } }
+		public override int BaseHealth { get { return 8; } }
 
 		public override bool IsTaunt
 		{

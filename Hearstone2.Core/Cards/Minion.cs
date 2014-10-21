@@ -2,18 +2,20 @@
 {
 	public abstract class Minion : Card
 	{
-		public abstract int Damage { get; }
-		public abstract int Health { get; }
-		public int CurrentHealth { get; private set; }
+		public abstract int BaseDamage { get; }
+		public abstract int BaseHealth { get; }
+		public int Health { get; private set; }
+        public int Damage { get; private set; }
 
 		public Minion()
 		{
-			CurrentHealth = Health;
+			Health = BaseHealth;
+		    Damage = BaseDamage;
 		}
 
 		public void DealDamage(int damage)
 		{
-			CurrentHealth -= damage;
+			Health -= damage;
 		}
 
 		#region Mechanics

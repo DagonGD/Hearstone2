@@ -12,12 +12,12 @@
 			get { return 2; }
 		}
 
-		public override int Damage
+		public override int BaseDamage
 		{
 			get { return 2; }
 		}
 
-		public override int Health
+		public override int BaseHealth
 		{
 			get { return 1; }
 		}

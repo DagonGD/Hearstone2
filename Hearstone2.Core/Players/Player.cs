@@ -10,12 +10,14 @@ namespace Hearstone2.Core.Players
 		public List<Card> Deck { get; set; }
 		public List<Minion> PlacedMinions { get; set; }
         public Player Opponent { get; set; }
+        public int Mana { get; set; }
 
 		public Player()
 		{
 			Hand = new List<Card>();
 			Deck = new List<Card>();
 			PlacedMinions = new List<Minion>();
+		    Mana = 10;
 		}
 
 		public abstract void HeroAbility();
@@ -29,10 +31,16 @@ namespace Hearstone2.Core.Players
 
 		public void PlayCard(Card card)
 		{
-			if (card is Minion)
+		    if (Mana < card.ManaCost)
+		    {
+		        return;
+		    }
+		    Mana = Mana - card.ManaCost;
+            Hand.Remove(card);
+
+		    if (card is Minion)
 			{
 				PlacedMinions.Add(card as Minion);
-				Hand.Remove(card);
 				return;
 			}
 		}
