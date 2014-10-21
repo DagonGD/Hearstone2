@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Druid\IronbarkProtector.cs" />
+    <Compile Include="Cards\IMinionTargetSpell.cs" />
+    <Compile Include="Cards\ISpelWithoutTarget.cs" />
     <Compile Include="Cards\Mage\Fireball.cs" />
     <Compile Include="Cards\Minion.cs" />
     <Compile Include="Cards\Neutral\BluegillWarrior.cs" />

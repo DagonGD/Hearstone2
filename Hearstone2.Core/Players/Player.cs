@@ -9,6 +9,7 @@ namespace Hearstone2.Core.Players
 		public List<Card> Hand { get; set; }
 		public List<Card> Deck { get; set; }
 		public List<Minion> PlacedMinions { get; set; }
+        public Player Opponent { get; set; }
 
 		public Player()
 		{

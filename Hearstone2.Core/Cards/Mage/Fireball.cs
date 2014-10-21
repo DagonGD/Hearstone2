@@ -1,6 +1,6 @@
 ﻿namespace Hearstone2.Core.Cards.Mage
 {
-	public class Fireball: Spell
+	public class Fireball: Spell, IMinionTargetSpell
 	{
 		public override string Title
 		{
