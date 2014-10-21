@@ -39,13 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cards\CardBase.cs" />
+    <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Druid\IronbarkProtector.cs" />
+    <Compile Include="Cards\Mage\Fireball.cs" />
     <Compile Include="Cards\Minion.cs" />
     <Compile Include="Cards\Neutral\BluegillWarrior.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Cards\Weapon.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Table.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

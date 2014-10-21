@@ -7,6 +7,11 @@
 			get { return "Bluegill Warrior"; }
 		}
 
+		public override int ManaCost
+		{
+			get { return 2; }
+		}
+
 		public override int Damage
 		{
 			get { return 2; }
