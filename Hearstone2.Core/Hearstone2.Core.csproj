@@ -46,7 +46,9 @@
     <Compile Include="Cards\Neutral\BluegillWarrior.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Cards\Weapon.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Players\Druid.cs" />
+    <Compile Include="Players\Mage.cs" />
+    <Compile Include="Players\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table.cs" />
   </ItemGroup>
