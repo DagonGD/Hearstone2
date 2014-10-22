@@ -22,16 +22,26 @@ namespace Hearstone2
 		                Deck = new List<Card> {new Fireball()}
 		            });
 
-			PlayerTurn(table.Player1);
-		    PlayerTurn(table.Player2);
+			for (int i = 0; i < 10; i++)
+			{
+				PlayerTurn(table.Player1);
+				PlayerTurn(table.Player2);
 
-		    table.Cleanup();
+				table.Cleanup();
+			}
 		}
 
 	    private static void PlayerTurn(Player player)
 	    {
+			player.GainMana();
             player.DrawCard();
+
 	        var firstCard = player.Hand.FirstOrDefault();
+
+			if (firstCard == null || !firstCard.CanPlay())
+			{
+				return;
+			}
 
             if(firstCard is Minion)
 	        {

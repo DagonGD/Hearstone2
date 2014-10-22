@@ -46,8 +46,10 @@
     <Compile Include="Cards\Mage\Fireball.cs" />
     <Compile Include="Cards\Minion.cs" />
     <Compile Include="Cards\Neutral\BluegillWarrior.cs" />
+    <Compile Include="Cards\NotEnoughManaException.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Cards\Weapon.cs" />
+    <Compile Include="NoSpaceOnTableException.cs" />
     <Compile Include="Players\Druid.cs" />
     <Compile Include="Players\Mage.cs" />
     <Compile Include="Players\Player.cs" />

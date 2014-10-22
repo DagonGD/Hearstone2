@@ -2,6 +2,8 @@
 {
 	public abstract class Minion : Card
 	{
+		public const int MaxMinionsOnTable = 7;
+
 		public abstract int BaseDamage { get; }
 		public abstract int BaseHealth { get; }
 		public int Health { get; private set; }
@@ -23,8 +25,22 @@
 		/// </summary>
 		public override void Play()
 		{
+			if (Owner.PlacedMinions.Count >= MaxMinionsOnTable)
+			{
+				throw new NoSpaceOnTableException();
+			}
+
 			Owner.PlacedMinions.Add(this);
 			base.Play();
+		}
+
+		/// <summary>
+		/// To play minion you need to have less then 7 minions on the table
+		/// </summary>
+		/// <returns></returns>
+		public override bool CanPlay()
+		{
+			return base.CanPlay() && Owner.PlacedMinions.Count < MaxMinionsOnTable;
 		}
 
 		#region Mechanics

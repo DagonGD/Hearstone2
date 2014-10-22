@@ -13,8 +13,22 @@ namespace Hearstone2.Core.Cards
 		/// </summary>
 		public virtual void Play()
 		{
+			if (Owner.Mana < ManaCost)
+			{
+				throw new NotEnoughManaException();
+			}
+
 			Owner.Mana -= ManaCost;
 			Owner.Hand.Remove(this);
+		}
+
+		/// <summary>
+		/// To play some abstract card you need to have enoght mana
+		/// </summary>
+		/// <returns></returns>
+		public virtual bool CanPlay()
+		{
+			return Owner.Mana >= ManaCost;
 		}
 	}
 }
