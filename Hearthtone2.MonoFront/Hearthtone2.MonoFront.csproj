@@ -39,9 +39,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Cards\Mage\Fireball.png" />
-    <Content Include="Content\Cards\Druid\IronbarkProtector.png" />
-    <Content Include="Content\Cards\Neutral\BluegillWarrior.png" />
+    <Content Include="Content\Classes\Druid\Cards\IronbarkProtector.png" />
+    <Content Include="Content\Classes\Mage\Cards\Fireball.png" />
+    <Content Include="Content\Classes\Neutral\Cards\BluegillWarrior.png" />
     <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>

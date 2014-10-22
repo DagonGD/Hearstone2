@@ -49,7 +49,7 @@
     <Compile Include="Cards\NotEnoughManaException.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Cards\Weapon.cs" />
-    <Compile Include="NoSpaceOnTableException.cs" />
+    <Compile Include="Cards\NoSpaceOnTableException.cs" />
     <Compile Include="Players\Druid.cs" />
     <Compile Include="Players\Mage.cs" />
     <Compile Include="Players\Player.cs" />
