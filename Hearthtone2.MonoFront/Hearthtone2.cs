@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Hearthtone2.MonoFront
 {
@@ -8,13 +9,18 @@ namespace Hearthtone2.MonoFront
     /// </summary>
     public class Hearthtone2 : Game
     {
-        GraphicsDeviceManager _graphics;
-        SpriteBatch _spriteBatch;
+        private GraphicsDeviceManager _graphics;
+		private SpriteBatch _spriteBatch;
+	    private Texture2D _cardTexture;
+	    private GameObjects _gameObjects;
+		private KeyboardState _oldState;
+	    private SpriteFont _font;
 
         public Hearthtone2()
         {
             _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            Content.RootDirectory = "../../Content";
+			_gameObjects=new GameObjects();
         }
 
         /// <summary>
@@ -25,7 +31,8 @@ namespace Hearthtone2.MonoFront
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _gameObjects.Init();
+	        _oldState = Keyboard.GetState();
 
             base.Initialize();
         }
@@ -38,8 +45,8 @@ namespace Hearthtone2.MonoFront
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+	        _cardTexture = Content.Load<Texture2D>("card");
+			//_font = Content.Load<SpriteFont>("Arial");
         }
 
         /// <summary>
@@ -58,9 +65,20 @@ namespace Hearthtone2.MonoFront
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+			KeyboardState newState = Keyboard.GetState();
 
-            base.Update(gameTime);
+			if (newState.IsKeyDown(Keys.Escape))
+			{
+				Exit();
+			}
+
+			if (newState.IsKeyDown(Keys.Space) && _oldState.IsKeyDown(Keys.Space))
+			{
+				_gameObjects.Turn();
+			}
+
+	        _oldState = newState;
+			base.Update(gameTime);
         }
 
         /// <summary>
@@ -71,7 +89,17 @@ namespace Hearthtone2.MonoFront
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
+			//_spriteBatch.DrawString();
+
+	        for (int index = 0; index < _gameObjects.Table.Player1.Hand.Count; index++)
+	        {
+		        var card = _gameObjects.Table.Player1.Hand[index];
+		        _spriteBatch.Draw(_cardTexture, new Rectangle(286*index, 0, 286, 401), Color.White);
+	        }
+
+	        _spriteBatch.End();
 
             base.Draw(gameTime);
         }

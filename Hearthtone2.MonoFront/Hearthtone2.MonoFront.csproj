@@ -39,9 +39,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\card.png" />
     <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects.cs" />
     <Compile Include="Hearthtone2.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
@@ -50,6 +52,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hearstone2.Core\Hearstone2.Core.csproj">
@@ -57,9 +60,7 @@
       <Name>Hearstone2.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets" Condition="Exists('..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
