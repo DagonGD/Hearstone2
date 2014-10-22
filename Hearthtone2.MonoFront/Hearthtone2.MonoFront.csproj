@@ -39,11 +39,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\card.png" />
+    <Content Include="Content\Cards\Mage\Fireball.png" />
+    <Content Include="Content\Cards\Druid\IronbarkProtector.png" />
+    <Content Include="Content\Cards\Neutral\BluegillWarrior.png" />
     <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects.cs" />
+    <Compile Include="Components\Table.cs" />
     <Compile Include="Hearthtone2.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>

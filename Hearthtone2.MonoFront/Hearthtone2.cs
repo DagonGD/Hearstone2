@@ -1,5 +1,5 @@
+using Hearthtone2.MonoFront.Components;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Hearthtone2.MonoFront
@@ -9,18 +9,16 @@ namespace Hearthtone2.MonoFront
     /// </summary>
     public class Hearthtone2 : Game
     {
-        private GraphicsDeviceManager _graphics;
-		private SpriteBatch _spriteBatch;
-	    private Texture2D _cardTexture;
-	    private GameObjects _gameObjects;
-		private KeyboardState _oldState;
-	    private SpriteFont _font;
+	    private GraphicsDeviceManager _graphics;
 
         public Hearthtone2()
         {
             _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "../../Content";
-			_gameObjects=new GameObjects();
+			_graphics.IsFullScreen = false;
+			_graphics.PreferredBackBufferWidth = 1024;
+			_graphics.PreferredBackBufferHeight = 768;
+			Content.RootDirectory = "../../Content";
+	        this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -31,8 +29,7 @@ namespace Hearthtone2.MonoFront
         /// </summary>
         protected override void Initialize()
         {
-            _gameObjects.Init();
-	        _oldState = Keyboard.GetState();
+	        Components.Add(new Table(this));
 
             base.Initialize();
         }
@@ -43,10 +40,7 @@ namespace Hearthtone2.MonoFront
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-	        _cardTexture = Content.Load<Texture2D>("card");
-			//_font = Content.Load<SpriteFont>("Arial");
+
         }
 
         /// <summary>
@@ -55,7 +49,7 @@ namespace Hearthtone2.MonoFront
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            
         }
 
         /// <summary>
@@ -71,13 +65,7 @@ namespace Hearthtone2.MonoFront
 			{
 				Exit();
 			}
-
-			if (newState.IsKeyDown(Keys.Space) && _oldState.IsKeyDown(Keys.Space))
-			{
-				_gameObjects.Turn();
-			}
-
-	        _oldState = newState;
+	        
 			base.Update(gameTime);
         }
 
@@ -88,18 +76,6 @@ namespace Hearthtone2.MonoFront
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin();
-
-			//_spriteBatch.DrawString();
-
-	        for (int index = 0; index < _gameObjects.Table.Player1.Hand.Count; index++)
-	        {
-		        var card = _gameObjects.Table.Player1.Hand[index];
-		        _spriteBatch.Draw(_cardTexture, new Rectangle(286*index, 0, 286, 401), Color.White);
-	        }
-
-	        _spriteBatch.End();
 
             base.Draw(gameTime);
         }
