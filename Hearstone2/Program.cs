@@ -35,7 +35,7 @@ namespace Hearstone2
 
             if(firstCard is Minion)
 	        {
-                player.PlayCard(firstCard);
+                firstCard.Play();
                 return;
 	        }
 

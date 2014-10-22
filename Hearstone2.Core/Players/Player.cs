@@ -25,24 +25,9 @@ namespace Hearstone2.Core.Players
 		public void DrawCard()
 		{
 			var card = Deck.First();
+			card.Owner = this;
 			Hand.Add(card);
 			Deck.Remove(card);
-		}
-
-		public void PlayCard(Card card)
-		{
-		    if (Mana < card.ManaCost)
-		    {
-		        return;
-		    }
-		    Mana = Mana - card.ManaCost;
-            Hand.Remove(card);
-
-		    if (card is Minion)
-			{
-				PlacedMinions.Add(card as Minion);
-				return;
-			}
 		}
 	}
 }

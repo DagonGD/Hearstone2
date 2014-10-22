@@ -12,9 +12,10 @@
 			get { return 4; }
 		}
 
-		public override void Play(Minion target)
+		public void Play(Minion target)
 		{
 			target.DealDamage(6);
+			base.Play();
 		}
 	}
 }

@@ -18,6 +18,15 @@
 			Health -= damage;
 		}
 
+		/// <summary>
+		/// To play minion we need to place it on the table
+		/// </summary>
+		public override void Play()
+		{
+			Owner.PlacedMinions.Add(this);
+			base.Play();
+		}
+
 		#region Mechanics
 		public virtual void BattleCry()
 		{
