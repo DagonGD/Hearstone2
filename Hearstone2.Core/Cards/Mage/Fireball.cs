@@ -14,7 +14,7 @@
 
 		public void Play(Minion target)
 		{
-			target.DealDamage(6);
+			target.ReceiveDamage(6);
 			base.Play();
 		}
 	}

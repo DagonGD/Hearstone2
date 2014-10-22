@@ -15,7 +15,12 @@
 		    Damage = BaseDamage;
 		}
 
-		public void DealDamage(int damage)
+		public void DealDamage(Minion target)
+		{
+			target.ReceiveDamage(Damage);
+		}
+
+		public void ReceiveDamage(int damage)
 		{
 			Health -= damage;
 		}

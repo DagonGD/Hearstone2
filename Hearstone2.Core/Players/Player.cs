@@ -23,7 +23,7 @@ namespace Hearstone2.Core.Players
 
 		public abstract void HeroAbility();
 
-		public void ReceiveMana()
+		public void GainMana()
 		{
 			MaxMana++;
 			Mana = MaxMana;
