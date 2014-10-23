@@ -8,11 +8,13 @@
 		public abstract int BaseHealth { get; }
 		public int Health { get; private set; }
         public int Damage { get; private set; }
+        public bool CanFight { get; set; }
 
 		public Minion()
 		{
 			Health = BaseHealth;
 		    Damage = BaseDamage;
+		    CanFight = false;
 		}
 
 		public void DealDamage(Minion target)

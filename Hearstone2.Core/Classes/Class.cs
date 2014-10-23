@@ -43,5 +43,10 @@ namespace Hearstone2.Core.Classes
 			Hand.Add(card);
 			Deck.Remove(card);
 		}
+
+        public void RefreshMinions()
+        {
+            PlacedMinions.ForEach(m => m.CanFight = true);
+        }
 	}
 }
