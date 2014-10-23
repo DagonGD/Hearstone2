@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Hearstone2.Core;
 using Hearstone2.Core.Cards;
 using Hearstone2.Core.Cards.Druid;
 using Hearstone2.Core.Cards.Mage;
@@ -12,13 +13,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Hearthtone2.MonoFront.Components
 {
-	public class Table : DrawableGameComponent
+	public class TableComponent : DrawableGameComponent
 	{
 		private const int CardWidth = 307/2;
 		private const int CardHeight = 465/2;
 
 		private readonly Game _game;
-		private Hearstone2.Core.Table _table;
+		private Table _table;
 		private KeyboardState _oldState;
 		private Class _currentClass;
 
@@ -26,7 +27,7 @@ namespace Hearthtone2.MonoFront.Components
 		private Dictionary<Type, Texture2D> _cardFaces;
 		private Texture2D _cardBack;
 
-		public Table(Game game) : base(game)
+		public TableComponent(Game game) : base(game)
 		{
 			_game = game;
 		}
@@ -35,7 +36,7 @@ namespace Hearthtone2.MonoFront.Components
 		{
 			_oldState = Keyboard.GetState();
 
-			_table = new Hearstone2.Core.Table(
+			_table = new Table(
 				new Druid
 				{
 					Deck = new List<Card> { new BluegillWarrior(), new IronbarkProtector(), new BluegillWarrior() }

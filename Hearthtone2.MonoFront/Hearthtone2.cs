@@ -29,7 +29,7 @@ namespace Hearthtone2.MonoFront
         /// </summary>
         protected override void Initialize()
         {
-	        Components.Add(new Table(this));
+	        Components.Add(new TableComponent(this));
 
             base.Initialize();
         }

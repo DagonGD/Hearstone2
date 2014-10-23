@@ -46,7 +46,7 @@
     <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Table.cs" />
+    <Compile Include="Components\TableComponent.cs" />
     <Compile Include="Hearthtone2.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
