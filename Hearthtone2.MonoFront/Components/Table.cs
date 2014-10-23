@@ -14,15 +14,17 @@ namespace Hearthtone2.MonoFront.Components
 {
 	public class Table : DrawableGameComponent
 	{
-		private const int CardWidth = 307;
-		private const int CardHeight = 465;
+		private const int CardWidth = 307/2;
+		private const int CardHeight = 465/2;
 
 		private readonly Game _game;
 		private Hearstone2.Core.Table _table;
 		private KeyboardState _oldState;
 		private Class _currentClass;
 
+		//Textures
 		private Dictionary<Type, Texture2D> _cardFaces;
+		private Texture2D _cardBack;
 
 		public Table(Game game) : base(game)
 		{
@@ -55,6 +57,8 @@ namespace Hearthtone2.MonoFront.Components
 			_cardFaces.Add(typeof(IronbarkProtector), _game.Content.Load<Texture2D>("Classes\\Druid\\Cards\\IronbarkProtector"));
 			_cardFaces.Add(typeof(Fireball), _game.Content.Load<Texture2D>("Classes\\Mage\\Cards\\Fireball"));
 			_cardFaces.Add(typeof(BluegillWarrior), _game.Content.Load<Texture2D>("Classes\\Neutral\\Cards\\BluegillWarrior"));
+
+			_cardBack = _game.Content.Load<Texture2D>("CardBacks\\Card_Back_Legend.png");
 
 			base.LoadContent();
 		}
@@ -114,33 +118,52 @@ namespace Hearthtone2.MonoFront.Components
 			var spriteBatch = new SpriteBatch(_game.GraphicsDevice);
 			spriteBatch.Begin();
 
+			DrawPlayer1(spriteBatch);
+			DrawPlayer2(spriteBatch);
+
+			spriteBatch.End();
+
+			base.Draw(gameTime);
+		}
+
+		private void DrawPlayer1(SpriteBatch spriteBatch)
+		{
 			for (int index = 0; index < _table.Player1.Hand.Count; index++)
 			{
 				var card = _table.Player1.Hand[index];
-				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index * 200, 500, CardWidth/2, CardHeight/2), Color.White);
+				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index*200, 550, CardWidth, CardHeight), Color.White);
 			}
 
 			for (int index = 0; index < _table.Player1.PlacedMinions.Count; index++)
 			{
 				var card = _table.Player1.PlacedMinions[index];
-				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index * 200, 300, CardWidth / 2, CardHeight / 2), Color.White);
+				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index*200, 350, CardWidth, CardHeight), Color.White);
 			}
 
+			if (_table.Player1.Deck.Any())
+			{
+				spriteBatch.Draw(_cardBack, new Rectangle(850, 550, CardWidth, CardHeight), Color.White);
+			}
+		}
+
+		private void DrawPlayer2(SpriteBatch spriteBatch)
+		{
 			for (int index = 0; index < _table.Player2.Hand.Count; index++)
 			{
 				var card = _table.Player2.Hand[index];
-				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index * 200, 0, CardWidth / 2, CardHeight / 2), Color.White);
+				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index*200, 0, CardWidth, CardHeight), Color.White);
 			}
 
 			for (int index = 0; index < _table.Player2.PlacedMinions.Count; index++)
 			{
 				var card = _table.Player2.PlacedMinions[index];
-				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index * 200, 200, CardWidth / 2, CardHeight / 2), Color.White);
+				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index*200, 200, CardWidth, CardHeight), Color.White);
 			}
 
-			spriteBatch.End();
-
-			base.Draw(gameTime);
+			if (_table.Player2.Deck.Any())
+			{
+				spriteBatch.Draw(_cardBack, new Rectangle(850, 0, CardWidth, CardHeight), Color.White);
+			}
 		}
 	}
 }

@@ -39,6 +39,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CardBacks\Card_Back_Legend.png" />
     <Content Include="Content\Classes\Druid\Cards\IronbarkProtector.png" />
     <Content Include="Content\Classes\Mage\Cards\Fireball.png" />
     <Content Include="Content\Classes\Neutral\Cards\BluegillWarrior.png" />
