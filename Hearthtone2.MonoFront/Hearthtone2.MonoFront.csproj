@@ -46,6 +46,8 @@
     <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\GameMode.cs" />
+    <Compile Include="Components\PlacedCard.cs" />
     <Compile Include="Components\TableComponent.cs" />
     <Compile Include="Hearthtone2.cs" />
     <Compile Include="Program.cs" />

@@ -6,6 +6,7 @@ namespace Hearstone2.Core
 	{
 		public Class Player1 { get; set; }
 		public Class Player2 { get; set; }
+		public Class CurrentPlayer { get; private set; }
 
 	    public Table(Class player1, Class player2)
 	    {
@@ -14,12 +15,19 @@ namespace Hearstone2.Core
 
 	        Player2 = player2;
 	        player2.Opponent = player1;
+
+		    CurrentPlayer = Player1;
 	    }
 
 		public void Cleanup()
 		{
 			Player1.PlacedMinions.RemoveAll(m => m.Health <= 0);
 			Player2.PlacedMinions.RemoveAll(m => m.Health <= 0);
+		}
+
+		public void NextPlayer()
+		{
+			CurrentPlayer = CurrentPlayer.Opponent;
 		}
 	}
 }

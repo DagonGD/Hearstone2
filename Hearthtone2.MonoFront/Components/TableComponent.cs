@@ -15,26 +15,34 @@ namespace Hearthtone2.MonoFront.Components
 {
 	public class TableComponent : DrawableGameComponent
 	{
+		//Sizes
 		private const int CardWidth = 307/2;
 		private const int CardHeight = 465/2;
 
 		private readonly Game _game;
 		private Table _table;
-		private KeyboardState _oldState;
-		private Class _currentClass;
+		private KeyboardState _oldKeyboardState;
+		private MouseState _oldMouseState;
 
+		private PlacedCard _currentlyPlayingCard;
+		private GameMode _curretGameMode;
+		
 		//Textures
 		private Dictionary<Type, Texture2D> _cardFaces;
 		private Texture2D _cardBack;
 
+		private List<PlacedCard> _placedCards;
+
 		public TableComponent(Game game) : base(game)
 		{
 			_game = game;
+			_curretGameMode = GameMode.SelectCard;
 		}
 
 		public override void Initialize()
 		{
-			_oldState = Keyboard.GetState();
+			_oldKeyboardState = Keyboard.GetState();
+			_oldMouseState = Mouse.GetState();
 
 			_table = new Table(
 				new Druid
@@ -46,9 +54,11 @@ namespace Hearthtone2.MonoFront.Components
 					Deck = new List<Card> { new Fireball() }
 				});
 
-			_cardFaces = new Dictionary<Type, Texture2D>();
+			_table.CurrentPlayer.GainMana();
+			_table.CurrentPlayer.DrawCard();
 
-			_currentClass = _table.Player1;
+			_cardFaces = new Dictionary<Type, Texture2D>();
+			_placedCards = new List<PlacedCard>();
 
 			base.Initialize();
 		}
@@ -66,105 +76,111 @@ namespace Hearthtone2.MonoFront.Components
 
 		public override void Update(GameTime gameTime)
 		{
-			KeyboardState newState = Keyboard.GetState();
+			var newKeyboardState = Keyboard.GetState();
+			var newMouseState = Mouse.GetState();
 
-			if (newState.IsKeyDown(Keys.Space) && _oldState.IsKeyUp(Keys.Space))
+			if (newKeyboardState.IsKeyDown(Keys.Space) && _oldKeyboardState.IsKeyUp(Keys.Space))
 			{
-				PlayerTurn(_currentClass);
-				_table.Cleanup();
-				_currentClass = _currentClass.Opponent;
+				_table.NextPlayer();
+				_table.CurrentPlayer.GainMana();
+				_table.CurrentPlayer.DrawCard();
 			}
 
-			_oldState = newState;
-			base.Update(gameTime);
-		}
+			PlaceCards();
 
-		private static void PlayerTurn(Class @class)
-		{
-			@class.GainMana();
-			@class.DrawCard();
-
-			var firstCard = @class.Hand.FirstOrDefault(c=>c.CanPlay());
-
-			if (firstCard == null)
+			var placedCard = GetCardByPosition(newMouseState.Position);
+			
+			if (placedCard != null)
 			{
-				return;
-			}
-
-			if (firstCard is Minion)
-			{
-				firstCard.Play();
-				return;
-			}
-
-			if (firstCard is ISpellWithoutTarget)
-			{
-				((ISpellWithoutTarget)firstCard).Play();
-				return;
-			}
-
-			if (firstCard is IMinionTargetSpell)
-			{
-				var target = @class.Opponent.PlacedMinions.FirstOrDefault();
-
-				if (target != null)
+				if (placedCard.Card.Owner == _table.CurrentPlayer)
 				{
-					((IMinionTargetSpell)firstCard).Play(target);
+					placedCard.Color = placedCard.Card.CanPlay() ? Color.LightGreen : Color.Red;
+				}
+				else
+				{
+					placedCard.Color = Color.White;
 				}
 			}
+
+			if (newMouseState.LeftButton == ButtonState.Pressed)
+			{
+				if (placedCard != null)
+				{
+					if (_oldMouseState.LeftButton == ButtonState.Released)
+					{
+						switch (_curretGameMode)
+						{
+							case GameMode.SelectCard:
+								if (_table.CurrentPlayer == placedCard.Card.Owner && placedCard.Card.CanPlay())
+								{
+									if (placedCard.Card is Minion || placedCard.Card is ISpellWithoutTarget)
+									{
+										placedCard.Card.Play();
+									}
+
+									if (placedCard.Card is IMinionTargetSpell)
+									{
+										_currentlyPlayingCard = placedCard;
+										_curretGameMode = GameMode.SelectTarget;
+									}
+								}
+								break;
+							case GameMode.SelectTarget:
+								if (_currentlyPlayingCard.Card is IMinionTargetSpell && placedCard.Card is Minion)
+								{
+									var minionTargetSpell = _currentlyPlayingCard.Card as IMinionTargetSpell;
+									minionTargetSpell.Play(placedCard.Card as Minion);
+									_currentlyPlayingCard = null;
+									_curretGameMode = GameMode.SelectCard;
+								}
+								break;
+						}
+					}
+				}
+
+				_table.Cleanup();
+			}
+
+			_oldKeyboardState = newKeyboardState;
+			_oldMouseState = newMouseState;
+
+			base.Update(gameTime);
 		}
 
 		public override void Draw(GameTime gameTime)
 		{
 			var spriteBatch = new SpriteBatch(_game.GraphicsDevice);
 			spriteBatch.Begin();
-
-			DrawPlayer1(spriteBatch);
-			DrawPlayer2(spriteBatch);
-
+			DrawCards(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);
 		}
 
-		private void DrawPlayer1(SpriteBatch spriteBatch)
+		private void PlaceCards()
 		{
-			for (int index = 0; index < _table.Player1.Hand.Count; index++)
-			{
-				var card = _table.Player1.Hand[index];
-				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index*200, 550, CardWidth, CardHeight), Color.White);
-			}
+			_placedCards.Clear();
 
-			for (int index = 0; index < _table.Player1.PlacedMinions.Count; index++)
-			{
-				var card = _table.Player1.PlacedMinions[index];
-				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index*200, 350, CardWidth, CardHeight), Color.White);
-			}
-
-			if (_table.Player1.Deck.Any())
-			{
-				spriteBatch.Draw(_cardBack, new Rectangle(850, 550, CardWidth, CardHeight), Color.White);
-			}
+			_placedCards.AddRange(_table.Player1.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 550, CardWidth, CardHeight) }));
+			_placedCards.AddRange(_table.Player1.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 350, CardWidth, CardHeight) }));
+			_placedCards.AddRange(_table.Player2.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, -20, CardWidth, CardHeight) }));
+			_placedCards.AddRange(_table.Player2.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 200, CardWidth, CardHeight) }));
 		}
 
-		private void DrawPlayer2(SpriteBatch spriteBatch)
+		private void DrawCards(SpriteBatch spriteBatch)
 		{
-			for (int index = 0; index < _table.Player2.Hand.Count; index++)
+			foreach (var card in _placedCards)
 			{
-				var card = _table.Player2.Hand[index];
-				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index*200, -20, CardWidth, CardHeight), Color.White);
+				spriteBatch.Draw(_cardFaces[card.Card.GetType()], card.Position, card.Color);
 			}
 
-			for (int index = 0; index < _table.Player2.PlacedMinions.Count; index++)
-			{
-				var card = _table.Player2.PlacedMinions[index];
-				spriteBatch.Draw(_cardFaces[card.GetType()], new Rectangle(index*200, 200, CardWidth, CardHeight), Color.White);
-			}
+			spriteBatch.Draw(_cardBack, new Rectangle(850, -20, CardWidth, CardHeight), _table.Player2.Deck.Any() ? Color.White : Color.Red);
+			spriteBatch.Draw(_cardBack, new Rectangle(850, 550, CardWidth, CardHeight), _table.Player1.Deck.Any() ? Color.White : Color.Red);
+		}
 
-			if (_table.Player2.Deck.Any())
-			{
-				spriteBatch.Draw(_cardBack, new Rectangle(850, -20, CardWidth, CardHeight), Color.White);
-			}
+		private PlacedCard GetCardByPosition(Point position)
+		{
+			return _placedCards.FirstOrDefault(c => c.Position.Contains(position));
 		}
 	}
 }
