@@ -1,6 +1,6 @@
 ﻿namespace Hearstone2.Core.Cards
 {
-    public interface ISpelWithoutTarget
+    public interface ISpellWithoutTarget
     {
         void Play();
     }

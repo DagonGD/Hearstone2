@@ -1,4 +1,4 @@
-﻿using Hearstone2.Core.Players;
+﻿using Hearstone2.Core.Classes;
 
 namespace Hearstone2.Core.Cards
 {
@@ -6,7 +6,7 @@ namespace Hearstone2.Core.Cards
 	{
 		public abstract string Title { get; }
 		public abstract int ManaCost { get; }
-		public Player Owner { get; set; }
+		public Class Owner { get; set; }
 
 		/// <summary>
 		/// To play any card we need to spend mana and remove this card from hand

@@ -1,13 +1,13 @@
-﻿using Hearstone2.Core.Players;
+﻿using Hearstone2.Core.Classes;
 
 namespace Hearstone2.Core
 {
 	public class Table
 	{
-		public Player Player1 { get; set; }
-		public Player Player2 { get; set; }
+		public Class Player1 { get; set; }
+		public Class Player2 { get; set; }
 
-	    public Table(Player player1, Player player2)
+	    public Table(Class player1, Class player2)
 	    {
 	        Player1 = player1;
 	        Player1.Opponent = player2;

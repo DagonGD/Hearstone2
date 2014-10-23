@@ -5,7 +5,7 @@ using Hearstone2.Core.Cards;
 using Hearstone2.Core.Cards.Druid;
 using Hearstone2.Core.Cards.Mage;
 using Hearstone2.Core.Cards.Neutral;
-using Hearstone2.Core.Players;
+using Hearstone2.Core.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,7 +20,7 @@ namespace Hearthtone2.MonoFront.Components
 		private readonly Game _game;
 		private Hearstone2.Core.Table _table;
 		private KeyboardState _oldState;
-		private Player _currentPlayer;
+		private Class _currentClass;
 
 		private Dictionary<Type, Texture2D> _cardFaces;
 
@@ -45,7 +45,7 @@ namespace Hearthtone2.MonoFront.Components
 
 			_cardFaces = new Dictionary<Type, Texture2D>();
 
-			_currentPlayer = _table.Player1;
+			_currentClass = _table.Player1;
 
 			base.Initialize();
 		}
@@ -65,21 +65,21 @@ namespace Hearthtone2.MonoFront.Components
 
 			if (newState.IsKeyDown(Keys.Space) && _oldState.IsKeyUp(Keys.Space))
 			{
-				PlayerTurn(_currentPlayer);
+				PlayerTurn(_currentClass);
 				_table.Cleanup();
-				_currentPlayer = _currentPlayer.Opponent;
+				_currentClass = _currentClass.Opponent;
 			}
 
 			_oldState = newState;
 			base.Update(gameTime);
 		}
 
-		private static void PlayerTurn(Player player)
+		private static void PlayerTurn(Class @class)
 		{
-			player.GainMana();
-			player.DrawCard();
+			@class.GainMana();
+			@class.DrawCard();
 
-			var firstCard = player.Hand.FirstOrDefault(c=>c.CanPlay());
+			var firstCard = @class.Hand.FirstOrDefault(c=>c.CanPlay());
 
 			if (firstCard == null)
 			{
@@ -92,15 +92,15 @@ namespace Hearthtone2.MonoFront.Components
 				return;
 			}
 
-			if (firstCard is ISpelWithoutTarget)
+			if (firstCard is ISpellWithoutTarget)
 			{
-				((ISpelWithoutTarget)firstCard).Play();
+				((ISpellWithoutTarget)firstCard).Play();
 				return;
 			}
 
 			if (firstCard is IMinionTargetSpell)
 			{
-				var target = player.Opponent.PlacedMinions.FirstOrDefault();
+				var target = @class.Opponent.PlacedMinions.FirstOrDefault();
 
 				if (target != null)
 				{
