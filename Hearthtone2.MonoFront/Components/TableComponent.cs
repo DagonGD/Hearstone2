@@ -141,6 +141,12 @@ namespace Hearthtone2.MonoFront.Components
 				_table.Cleanup();
 			}
 
+			if (newMouseState.RightButton == ButtonState.Pressed && _oldMouseState.RightButton == ButtonState.Released)
+			{
+				_currentlyPlayingCard = null;
+				_curretGameMode = GameMode.SelectCard;
+			}
+
 			_oldKeyboardState = newKeyboardState;
 			_oldMouseState = newMouseState;
 
