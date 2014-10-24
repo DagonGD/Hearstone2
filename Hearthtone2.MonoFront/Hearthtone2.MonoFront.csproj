@@ -54,6 +54,7 @@
     <Compile Include="Components\TargetArrowComponent.cs" />
     <Compile Include="Content\CardFaceStorage.cs" />
     <Compile Include="Hearthtone2Game.cs" />
+    <Compile Include="PlacedCardsStorage.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

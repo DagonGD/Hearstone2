@@ -22,6 +22,7 @@ namespace Hearthtone2.MonoFront
 		public GameMode CurrentGameMode;
 		public PlacedCard CurrentlyPlayingCard;
 	    public CardFaceStorage CardFaceStorage;
+	    public PlacedCardsStorage PlacedCardsStorage;
 
         public Hearthtone2Game()
         {
@@ -43,6 +44,7 @@ namespace Hearthtone2.MonoFront
 				});
 			CurrentGameMode = GameMode.SelectCard;
 			CardFaceStorage = new CardFaceStorage(this);
+			PlacedCardsStorage = new PlacedCardsStorage();
         }
 
         /// <summary>
