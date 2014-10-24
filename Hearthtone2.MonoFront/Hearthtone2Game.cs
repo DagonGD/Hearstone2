@@ -27,10 +27,10 @@ namespace Hearthtone2.MonoFront
         {
             _graphics = new GraphicsDeviceManager(this);
 			_graphics.IsFullScreen = false;
-			_graphics.PreferredBackBufferWidth = 1024;
-			_graphics.PreferredBackBufferHeight = 768;
+            _graphics.PreferredBackBufferWidth = 1600;
+            _graphics.PreferredBackBufferHeight = 900;
 			Content.RootDirectory = "../../Content";
-	        this.IsMouseVisible = true;
+	        IsMouseVisible = true;
 
 			Table = new Table(
 				new Druid
@@ -54,15 +54,15 @@ namespace Hearthtone2.MonoFront
         protected override void Initialize()
         {
 	        Components.Add(new TableComponent(this));
-			
-			Components.Add(new DeckComponent(this, Table.Player1, new Point(850, 550)));
-			Components.Add(new DeckComponent(this, Table.Player2, new Point(850, -20)));
 
-			Components.Add(new HandComponent(this, Table.Player1, new Point(0, 550)));
-			Components.Add(new HandComponent(this, Table.Player2, new Point(0, -20)));
+            Components.Add(new DeckComponent(this, Table.Player1, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width, GraphicsDevice.Viewport.Height - PlacedCard.Height)));
+            Components.Add(new DeckComponent(this, Table.Player2, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width, -20)));
 
-			Components.Add(new PlacedMinionsComponent(this, Table.Player1, new Point(0, 360)));
-			Components.Add(new PlacedMinionsComponent(this, Table.Player2, new Point(0, 170)));
+            Components.Add(new HandComponent(this, Table.Player1, new Point(0, GraphicsDevice.Viewport.Height - PlacedCard.Height)));
+            Components.Add(new HandComponent(this, Table.Player2, new Point(0, -20)));
+
+            Components.Add(new PlacedMinionsComponent(this, Table.Player1, new Point(0, GraphicsDevice.Viewport.Height - 2 * PlacedCard.Height)));
+            Components.Add(new PlacedMinionsComponent(this, Table.Player2, new Point(0, PlacedCard.Height)));
 
             Components.Add(new TargetArrowComponent(this));
 

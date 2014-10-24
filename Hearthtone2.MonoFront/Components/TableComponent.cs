@@ -9,6 +9,7 @@ namespace Hearthtone2.MonoFront.Components
 		private readonly Hearthtone2Game _game;
 		private KeyboardState _oldKeyboardState;
 		private MouseState _oldMouseState;
+	    private Texture2D _backGround;
 
 		public TableComponent(Hearthtone2Game game)
 			: base(game)
@@ -30,6 +31,8 @@ namespace Hearthtone2.MonoFront.Components
 
 		protected override void LoadContent()
 		{
+		    _backGround = _game.Content.Load<Texture2D>("Backgrounds//bg1");
+
 			base.LoadContent();
 		}
 
@@ -62,15 +65,10 @@ namespace Hearthtone2.MonoFront.Components
 		{
 			var spriteBatch = new SpriteBatch(_game.GraphicsDevice);
 			spriteBatch.Begin();
-			DrawCards(spriteBatch);
+            spriteBatch.Draw(_backGround, new Rectangle(0, 0, _game.GraphicsDevice.Viewport.Width, _game.GraphicsDevice.Viewport.Height), Color.Wheat);
 			spriteBatch.End();
 
 			base.Draw(gameTime);
-		}
-
-		private void DrawCards(SpriteBatch spriteBatch)
-		{
-			
 		}
 	}
 }
