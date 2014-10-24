@@ -1,6 +1,8 @@
-﻿namespace Hearstone2.Core.Cards.Mage
+﻿using Hearstone2.Core.Classes;
+
+namespace Hearstone2.Core.Cards.Mage
 {
-	public class Fireball: Spell, IMinionTargetSpell
+	public class Fireball: Spell, IMinionTargetSpell, IHeroTargetSpell
 	{
 		public override string Title
 		{
@@ -17,5 +19,11 @@
 			target.ReceiveDamage(6);
 			base.Play();
 		}
+
+	    public void Play(Hero target)
+	    {
+	        target.ReceiveDamage(6);
+            base.Play();
+	    }
 	}
 }

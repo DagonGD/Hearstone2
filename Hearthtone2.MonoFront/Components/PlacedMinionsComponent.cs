@@ -11,12 +11,12 @@ namespace Hearthtone2.MonoFront.Components
 	public class PlacedMinionsComponent: DrawableGameComponent
 	{
         private readonly Hearthtone2Game _game;
-		private readonly Class _player;
+		private readonly Hero _player;
 		private readonly Point _position;
 		private readonly List<PlacedCard> _placedCards;
 	    private MouseState _oldMouseState;
 
-	    public PlacedMinionsComponent(Hearthtone2Game game, Class player, Point position)
+	    public PlacedMinionsComponent(Hearthtone2Game game, Hero player, Point position)
 			: base(game)
 		{
 			_game = game;
@@ -72,7 +72,6 @@ namespace Hearthtone2.MonoFront.Components
                                 {
                                     ((Minion)_game.CurrentlyPlayingCard.Card).DealDamage(targetCard.Card as Minion);
                                     ((Minion)targetCard.Card).DealDamage(_game.CurrentlyPlayingCard.Card as Minion);
-                                    ((Minion)_game.CurrentlyPlayingCard.Card).CanFight = false;
                                     _game.CurrentlyPlayingCard = null;
                                     _game.CurrentGameMode = GameMode.SelectCard;
                                 }

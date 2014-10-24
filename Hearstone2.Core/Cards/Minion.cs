@@ -1,4 +1,6 @@
-﻿namespace Hearstone2.Core.Cards
+﻿using Hearstone2.Core.Classes;
+
+namespace Hearstone2.Core.Cards
 {
 	public abstract class Minion : Card
 	{
@@ -8,7 +10,7 @@
 		public abstract int BaseHealth { get; }
 		public int Health { get; private set; }
         public int Damage { get; private set; }
-        public bool CanFight { get; set; }
+        public bool CanFight { get; private set; }
 
 		public Minion()
 		{
@@ -20,12 +22,24 @@
 		public void DealDamage(Minion target)
 		{
 			target.ReceiveDamage(Damage);
+		    CanFight = false;
 		}
+
+        public void DealDamage(Hero target)
+        {
+            target.ReceiveDamage(Damage);
+            CanFight = false;
+        }
 
 		public void ReceiveDamage(int damage)
 		{
 			Health -= damage;
 		}
+
+        public void Refresh()
+        {
+            CanFight = true;
+        }
 
 		/// <summary>
 		/// To play minion we need to place it on the table

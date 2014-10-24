@@ -4,11 +4,11 @@ namespace Hearstone2.Core
 {
 	public class Table
 	{
-		public Class Player1 { get; set; }
-		public Class Player2 { get; set; }
-		public Class CurrentPlayer { get; private set; }
+		public Hero Player1 { get; set; }
+		public Hero Player2 { get; set; }
+		public Hero CurrentPlayer { get; private set; }
 
-	    public Table(Class player1, Class player2)
+	    public Table(Hero player1, Hero player2)
 	    {
 	        Player1 = player1;
 	        Player1.Opponent = player2;

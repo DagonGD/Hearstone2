@@ -17,19 +17,22 @@ namespace Hearthtone2.MonoFront
     /// </summary>
     public class Hearthtone2Game : Game
     {
-	    private GraphicsDeviceManager _graphics;
+	    private readonly GraphicsDeviceManager _graphics;
 	    public Table Table;
 		public GameMode CurrentGameMode;
 		public PlacedCard CurrentlyPlayingCard;
 	    public CardFaceStorage CardFaceStorage;
+        public AvatarStorage AvatarStorage;
 
         public Hearthtone2Game()
         {
-            _graphics = new GraphicsDeviceManager(this);
-			_graphics.IsFullScreen = false;
-            _graphics.PreferredBackBufferWidth = 1600;
-            _graphics.PreferredBackBufferHeight = 900;
-			Content.RootDirectory = "../../Content";
+            _graphics = new GraphicsDeviceManager(this)
+                {
+                    IsFullScreen = false,
+                    PreferredBackBufferWidth = 1600,
+                    PreferredBackBufferHeight = 900
+                };
+            Content.RootDirectory = "../../Content";
 	        IsMouseVisible = true;
 
 			Table = new Table(
@@ -41,8 +44,10 @@ namespace Hearthtone2.MonoFront
 				{
 					Deck = new List<Card> { new Fireball(), new BluegillWarrior(), new Fireball(), new Fireball(), new Fireball(), new Fireball() }
 				});
+
 			CurrentGameMode = GameMode.SelectCard;
 			CardFaceStorage = new CardFaceStorage(this);
+            AvatarStorage = new AvatarStorage(this);
         }
 
         /// <summary>
@@ -64,6 +69,9 @@ namespace Hearthtone2.MonoFront
             Components.Add(new PlacedMinionsComponent(this, Table.Player1, new Point(0, GraphicsDevice.Viewport.Height - 2 * PlacedCard.Height)));
             Components.Add(new PlacedMinionsComponent(this, Table.Player2, new Point(0, PlacedCard.Height)));
 
+            Components.Add(new HeroComponent(this, Table.Player1, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width - HeroComponent.Width, GraphicsDevice.Viewport.Height - HeroComponent.Height)));
+            Components.Add(new HeroComponent(this, Table.Player2, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width - HeroComponent.Width, 0)));
+
             Components.Add(new TargetArrowComponent(this));
 
             base.Initialize();
@@ -76,6 +84,7 @@ namespace Hearthtone2.MonoFront
         protected override void LoadContent()
         {
 	        CardFaceStorage.LoadContent();
+            AvatarStorage.LoadContent();
         }
 
         /// <summary>

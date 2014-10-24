@@ -6,7 +6,7 @@ namespace Hearstone2.Core.Cards
 	{
 		public abstract string Title { get; }
 		public abstract int ManaCost { get; }
-		public Class Owner { get; set; }
+		public Hero Owner { get; set; }
 
 		/// <summary>
 		/// To play any card we need to spend mana and remove this card from hand

@@ -43,6 +43,8 @@ namespace Hearthtone2.MonoFront.Components
 
 			if (newKeyboardState.IsKeyDown(Keys.Space) && _oldKeyboardState.IsKeyUp(Keys.Space))
 			{
+                _game.CurrentGameMode = GameMode.SelectCard;
+			    _game.CurrentlyPlayingCard = null;
 				_game.Table.NextPlayer();
 				_game.Table.CurrentPlayer.GainMana();
                 _game.Table.CurrentPlayer.RefreshMinions();

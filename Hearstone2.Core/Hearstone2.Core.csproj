@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Druid\IronbarkProtector.cs" />
+    <Compile Include="Cards\IHeroTargetSpell.cs" />
     <Compile Include="Cards\IMinionTargetSpell.cs" />
     <Compile Include="Cards\ISpellWithoutTarget.cs" />
     <Compile Include="Cards\Mage\Fireball.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="Cards\NoSpaceOnTableException.cs" />
     <Compile Include="Classes\Druid.cs" />
     <Compile Include="Classes\Mage.cs" />
-    <Compile Include="Classes\Class.cs" />
+    <Compile Include="Classes\Hero.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table.cs" />
   </ItemGroup>

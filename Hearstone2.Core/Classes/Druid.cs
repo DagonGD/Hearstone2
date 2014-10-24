@@ -1,6 +1,6 @@
 ﻿namespace Hearstone2.Core.Classes
 {
-	public class Druid : Class
+	public class Druid : Hero
 	{
 		public override void HeroAbility()
 		{

@@ -4,21 +4,23 @@ using Hearstone2.Core.Cards;
 
 namespace Hearstone2.Core.Classes
 {
-	public abstract class Class
+	public abstract class Hero
 	{
 		public List<Card> Hand { get; private set; }
 		public List<Card> Deck { get; set; }
 		public List<Minion> PlacedMinions { get; private set; }
-        public Class Opponent { get; set; }
+        public Hero Opponent { get; set; }
         public int Mana { get; set; }
 		public int MaxMana { get; set; }
+        public int Health { get; set; }
 
-		public Class()
+		public Hero()
 		{
 			Hand = new List<Card>();
 			Deck = new List<Card>();
 			PlacedMinions = new List<Minion>();
 			MaxMana = 0;
+		    Health = 30;
 		}
 
 		public abstract void HeroAbility();
@@ -46,7 +48,12 @@ namespace Hearstone2.Core.Classes
 
         public void RefreshMinions()
         {
-            PlacedMinions.ForEach(m => m.CanFight = true);
+            PlacedMinions.ForEach(m => m.Refresh());
+        }
+
+        public void ReceiveDamage(int damage)
+        {
+            Health -= damage;
         }
 	}
 }

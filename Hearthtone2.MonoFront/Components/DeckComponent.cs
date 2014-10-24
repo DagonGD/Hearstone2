@@ -8,11 +8,11 @@ namespace Hearthtone2.MonoFront.Components
 	public class DeckComponent : DrawableGameComponent
 	{
 		private readonly Game _game;
-		private readonly Class _player;
+		private readonly Hero _player;
 		private readonly Point _position;
 		private Texture2D _cardBack;
 
-		public DeckComponent(Game game, Class player, Point position) : base(game)
+		public DeckComponent(Game game, Hero player, Point position) : base(game)
 		{
 			_game = game;
 			_player = player;

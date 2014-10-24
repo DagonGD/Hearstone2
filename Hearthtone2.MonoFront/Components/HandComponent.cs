@@ -11,12 +11,12 @@ namespace Hearthtone2.MonoFront.Components
 	public class HandComponent: DrawableGameComponent
 	{
         private readonly Hearthtone2Game _game;
-		private readonly Class _player;
+		private readonly Hero _player;
 		private readonly Point _position;
 		private readonly List<PlacedCard> _placedCards;
 	    private MouseState _oldMouseState;
 
-	    public HandComponent(Hearthtone2Game game, Class player, Point position)
+	    public HandComponent(Hearthtone2Game game, Hero player, Point position)
 			: base(game)
 		{
 			_game = game;
