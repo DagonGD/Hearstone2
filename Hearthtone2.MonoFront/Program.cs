@@ -13,7 +13,7 @@ namespace Hearthtone2.MonoFront
         [STAThread]
         static void Main()
         {
-            using (var game = new Hearthtone2())
+            using (var game = new Hearthtone2Game())
                 game.Run();
         }
     }

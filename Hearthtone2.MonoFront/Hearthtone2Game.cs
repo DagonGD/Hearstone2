@@ -1,3 +1,10 @@
+using System.Collections.Generic;
+using Hearstone2.Core;
+using Hearstone2.Core.Cards;
+using Hearstone2.Core.Cards.Druid;
+using Hearstone2.Core.Cards.Mage;
+using Hearstone2.Core.Cards.Neutral;
+using Hearstone2.Core.Classes;
 using Hearthtone2.MonoFront.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -7,11 +14,14 @@ namespace Hearthtone2.MonoFront
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Hearthtone2 : Game
+    public class Hearthtone2Game : Game
     {
 	    private GraphicsDeviceManager _graphics;
+	    public Table Table;
+		public GameMode CurrentGameMode;
+		public  PlacedCard CurrentlyPlayingCard;
 
-        public Hearthtone2()
+        public Hearthtone2Game()
         {
             _graphics = new GraphicsDeviceManager(this);
 			_graphics.IsFullScreen = false;
@@ -19,6 +29,17 @@ namespace Hearthtone2.MonoFront
 			_graphics.PreferredBackBufferHeight = 768;
 			Content.RootDirectory = "../../Content";
 	        this.IsMouseVisible = true;
+
+			Table = new Table(
+				new Druid
+				{
+					Deck = new List<Card> { new BluegillWarrior(), new IronbarkProtector(), new BluegillWarrior(), new IronbarkProtector() }
+				},
+				new Mage
+				{
+					Deck = new List<Card> { new Fireball(), new BluegillWarrior(), new Fireball(), new Fireball(), new Fireball(), new Fireball() }
+				});
+			CurrentGameMode = GameMode.SelectCard;
         }
 
         /// <summary>
@@ -30,6 +51,7 @@ namespace Hearthtone2.MonoFront
         protected override void Initialize()
         {
 	        Components.Add(new TableComponent(this));
+			Components.Add(new TargetArrowComponent(this));
 
             base.Initialize();
         }

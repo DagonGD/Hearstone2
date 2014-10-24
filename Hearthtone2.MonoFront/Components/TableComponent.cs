@@ -6,7 +6,6 @@ using Hearstone2.Core.Cards;
 using Hearstone2.Core.Cards.Druid;
 using Hearstone2.Core.Cards.Mage;
 using Hearstone2.Core.Cards.Neutral;
-using Hearstone2.Core.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,24 +18,21 @@ namespace Hearthtone2.MonoFront.Components
 		private const int CardWidth = 307/2;
 		private const int CardHeight = 465/2;
 
-		private readonly Game _game;
-		private Table _table;
+		private readonly Hearthtone2Game _game;
 		private KeyboardState _oldKeyboardState;
 		private MouseState _oldMouseState;
 
-		private PlacedCard _currentlyPlayingCard;
-		private GameMode _curretGameMode;
-		
 		//Textures
 		private Dictionary<Type, Texture2D> _cardFaces;
 		private Texture2D _cardBack;
 
 		private List<PlacedCard> _placedCards;
 
-		public TableComponent(Game game) : base(game)
+		public TableComponent(Hearthtone2Game game)
+			: base(game)
 		{
 			_game = game;
-			_curretGameMode = GameMode.SelectCard;
+			
 		}
 
 		public override void Initialize()
@@ -44,18 +40,8 @@ namespace Hearthtone2.MonoFront.Components
 			_oldKeyboardState = Keyboard.GetState();
 			_oldMouseState = Mouse.GetState();
 
-			_table = new Table(
-				new Druid
-				{
-                    Deck = new List<Card> { new BluegillWarrior(), new IronbarkProtector(), new BluegillWarrior(), new IronbarkProtector() }
-				},
-				new Mage
-				{
-                    Deck = new List<Card> { new Fireball(), new BluegillWarrior(), new Fireball(), new Fireball(), new Fireball(), new Fireball() }
-				});
-
-			_table.CurrentPlayer.GainMana();
-			_table.CurrentPlayer.DrawCard();
+			_game.Table.CurrentPlayer.GainMana();
+			_game.Table.CurrentPlayer.DrawCard();
 
 			_cardFaces = new Dictionary<Type, Texture2D>();
 			_placedCards = new List<PlacedCard>();
@@ -81,10 +67,10 @@ namespace Hearthtone2.MonoFront.Components
 
 			if (newKeyboardState.IsKeyDown(Keys.Space) && _oldKeyboardState.IsKeyUp(Keys.Space))
 			{
-				_table.NextPlayer();
-				_table.CurrentPlayer.GainMana();
-                _table.CurrentPlayer.RefreshMinions();
-				_table.CurrentPlayer.DrawCard();
+				_game.Table.NextPlayer();
+				_game.Table.CurrentPlayer.GainMana();
+                _game.Table.CurrentPlayer.RefreshMinions();
+				_game.Table.CurrentPlayer.DrawCard();
 			}
 
 			PlaceCards();
@@ -93,13 +79,13 @@ namespace Hearthtone2.MonoFront.Components
 			
 			if (placedCard != null)
 			{
-				if (placedCard.Card.Owner == _table.CurrentPlayer)
+				if (placedCard.Card.Owner == _game.Table.CurrentPlayer)
 				{
-				    if (_table.CurrentPlayer.Hand.Contains(placedCard.Card))
+				    if (_game.Table.CurrentPlayer.Hand.Contains(placedCard.Card))
 				    {
 				        placedCard.Color = placedCard.Card.CanPlay() ? Color.LightGreen : Color.Red;
 				    }
-                    else if (_table.CurrentPlayer.PlacedMinions.Contains(placedCard.Card))
+                    else if (_game.Table.CurrentPlayer.PlacedMinions.Contains(placedCard.Card))
 				    {
                         placedCard.Color = ((Minion)placedCard.Card).CanFight ? Color.LightGreen : Color.Red;
 				    }
@@ -116,14 +102,14 @@ namespace Hearthtone2.MonoFront.Components
 				{
 					if (_oldMouseState.LeftButton == ButtonState.Released)
 					{
-						switch (_curretGameMode)
+						switch (_game.CurrentGameMode)
 						{
 							case GameMode.SelectCard:
-								if (_table.CurrentPlayer == placedCard.Card.Owner)
+								if (_game.Table.CurrentPlayer == placedCard.Card.Owner)
 								{
 								    if (placedCard.Card is Minion)
 								    {
-                                        if (_table.CurrentPlayer.Hand.Contains(placedCard.Card) && placedCard.Card.CanPlay())
+                                        if (_game.Table.CurrentPlayer.Hand.Contains(placedCard.Card) && placedCard.Card.CanPlay())
                                         {
                                             placedCard.Card.Play();
                                         }
@@ -131,8 +117,8 @@ namespace Hearthtone2.MonoFront.Components
                                         {
                                             if (((Minion) placedCard.Card).CanFight)
                                             {
-                                                _currentlyPlayingCard = placedCard;
-                                                _curretGameMode = GameMode.SelectTarget;
+                                                _game.CurrentlyPlayingCard = placedCard;
+												_game.CurrentGameMode = GameMode.SelectTarget;
                                             }
                                         }
 								    }
@@ -144,33 +130,33 @@ namespace Hearthtone2.MonoFront.Components
 
 									if (placedCard.Card is IMinionTargetSpell)
 									{
-										_currentlyPlayingCard = placedCard;
-										_curretGameMode = GameMode.SelectTarget;
+										_game.CurrentlyPlayingCard = placedCard;
+										_game.CurrentGameMode = GameMode.SelectTarget;
 									}
 								}
 								break;
 							case GameMode.SelectTarget:
-                                if (_currentlyPlayingCard.Card == placedCard.Card)
+								if (_game.CurrentlyPlayingCard.Card == placedCard.Card)
                                 {
                                     return;
                                 }
 
-								if (_currentlyPlayingCard.Card is IMinionTargetSpell && placedCard.Card is Minion)
+								if (_game.CurrentlyPlayingCard.Card is IMinionTargetSpell && placedCard.Card is Minion && _game.Table.CurrentPlayer.Opponent.PlacedMinions.Contains(placedCard.Card))
 								{
-									var minionTargetSpell = _currentlyPlayingCard.Card as IMinionTargetSpell;
+									var minionTargetSpell = _game.CurrentlyPlayingCard.Card as IMinionTargetSpell;
 									minionTargetSpell.Play(placedCard.Card as Minion);
-                                    _currentlyPlayingCard = null;
-                                    _curretGameMode = GameMode.SelectCard;
+                                    _game.CurrentlyPlayingCard = null;
+									_game.CurrentGameMode = GameMode.SelectCard;
 									break;
 								}
                                 
-                                if (_currentlyPlayingCard.Card is Minion && placedCard.Card is Minion)
+                                if (_game.CurrentlyPlayingCard.Card is Minion && placedCard.Card is Minion)
                                 {
-                                    ((Minion) _currentlyPlayingCard.Card).DealDamage(placedCard.Card as Minion);
-                                    ((Minion)placedCard.Card).DealDamage(_currentlyPlayingCard.Card as Minion);
-                                    ((Minion) _currentlyPlayingCard.Card).CanFight = false;
-                                    _currentlyPlayingCard = null;
-                                    _curretGameMode = GameMode.SelectCard;
+                                    ((Minion) _game.CurrentlyPlayingCard.Card).DealDamage(placedCard.Card as Minion);
+                                    ((Minion)placedCard.Card).DealDamage(_game.CurrentlyPlayingCard.Card as Minion);
+                                    ((Minion) _game.CurrentlyPlayingCard.Card).CanFight = false;
+                                    _game.CurrentlyPlayingCard = null;
+									_game.CurrentGameMode = GameMode.SelectCard;
                                     break;
                                 }
                                 
@@ -179,13 +165,13 @@ namespace Hearthtone2.MonoFront.Components
 					}
 				}
 
-				_table.Cleanup();
+				_game.Table.Cleanup();
 			}
 
 			if (newMouseState.RightButton == ButtonState.Pressed && _oldMouseState.RightButton == ButtonState.Released)
 			{
-				_currentlyPlayingCard = null;
-				_curretGameMode = GameMode.SelectCard;
+				_game.CurrentlyPlayingCard = null;
+				_game.CurrentGameMode = GameMode.SelectCard;
 			}
 
 			_oldKeyboardState = newKeyboardState;
@@ -208,10 +194,10 @@ namespace Hearthtone2.MonoFront.Components
 		{
 			_placedCards.Clear();
 
-			_placedCards.AddRange(_table.Player1.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 550, CardWidth, CardHeight) }));
-			_placedCards.AddRange(_table.Player1.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 360, CardWidth, CardHeight) }));
-			_placedCards.AddRange(_table.Player2.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, -20, CardWidth, CardHeight) }));
-			_placedCards.AddRange(_table.Player2.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 170, CardWidth, CardHeight) }));
+			_placedCards.AddRange(_game.Table.Player1.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 550, CardWidth, CardHeight) }));
+			_placedCards.AddRange(_game.Table.Player1.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 360, CardWidth, CardHeight) }));
+			_placedCards.AddRange(_game.Table.Player2.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, -20, CardWidth, CardHeight) }));
+			_placedCards.AddRange(_game.Table.Player2.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 170, CardWidth, CardHeight) }));
 		}
 
 		private void DrawCards(SpriteBatch spriteBatch)
@@ -221,8 +207,8 @@ namespace Hearthtone2.MonoFront.Components
 				spriteBatch.Draw(_cardFaces[card.Card.GetType()], card.Position, card.Color);
 			}
 
-			spriteBatch.Draw(_cardBack, new Rectangle(850, -20, CardWidth, CardHeight), _table.Player2.Deck.Any() ? Color.White : Color.Red);
-			spriteBatch.Draw(_cardBack, new Rectangle(850, 550, CardWidth, CardHeight), _table.Player1.Deck.Any() ? Color.White : Color.Red);
+			spriteBatch.Draw(_cardBack, new Rectangle(850, -20, CardWidth, CardHeight), _game.Table.Player2.Deck.Any() ? Color.White : Color.Red);
+			spriteBatch.Draw(_cardBack, new Rectangle(850, 550, CardWidth, CardHeight), _game.Table.Player1.Deck.Any() ? Color.White : Color.Red);
 		}
 
 		private PlacedCard GetCardByPosition(Point position)
