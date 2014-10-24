@@ -17,9 +17,6 @@ namespace Hearthtone2.MonoFront.Components
 		private KeyboardState _oldKeyboardState;
 		private MouseState _oldMouseState;
 
-		//Textures
-		private Dictionary<Type, Texture2D> _cardFaces;
-		
 		private List<PlacedCard> _placedCards;
 
 		public TableComponent(Hearthtone2Game game)
@@ -37,7 +34,6 @@ namespace Hearthtone2.MonoFront.Components
 			_game.Table.CurrentPlayer.GainMana();
 			_game.Table.CurrentPlayer.DrawCard();
 
-			_cardFaces = new Dictionary<Type, Texture2D>();
 			_placedCards = new List<PlacedCard>();
 
 			base.Initialize();
@@ -45,10 +41,6 @@ namespace Hearthtone2.MonoFront.Components
 
 		protected override void LoadContent()
 		{
-			_cardFaces.Add(typeof(IronbarkProtector), _game.Content.Load<Texture2D>("Classes\\Druid\\Cards\\IronbarkProtector"));
-			_cardFaces.Add(typeof(Fireball), _game.Content.Load<Texture2D>("Classes\\Mage\\Cards\\Fireball"));
-			_cardFaces.Add(typeof(BluegillWarrior), _game.Content.Load<Texture2D>("Classes\\Neutral\\Cards\\BluegillWarrior"));
-
 			base.LoadContent();
 		}
 
@@ -196,7 +188,7 @@ namespace Hearthtone2.MonoFront.Components
 		{
 			foreach (var card in _placedCards)
 			{
-				spriteBatch.Draw(_cardFaces[card.Card.GetType()], card.Position, card.Color);
+				spriteBatch.Draw(_game.CardFaceStorage.GetCardFace(card.Card.GetType()), card.Position, card.Color);
 			}
 		}
 

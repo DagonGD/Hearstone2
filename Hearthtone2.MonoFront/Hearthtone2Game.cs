@@ -6,6 +6,7 @@ using Hearstone2.Core.Cards.Mage;
 using Hearstone2.Core.Cards.Neutral;
 using Hearstone2.Core.Classes;
 using Hearthtone2.MonoFront.Components;
+using Hearthtone2.MonoFront.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -19,7 +20,8 @@ namespace Hearthtone2.MonoFront
 	    private GraphicsDeviceManager _graphics;
 	    public Table Table;
 		public GameMode CurrentGameMode;
-		public  PlacedCard CurrentlyPlayingCard;
+		public PlacedCard CurrentlyPlayingCard;
+	    public CardFaceStorage CardFaceStorage;
 
         public Hearthtone2Game()
         {
@@ -40,6 +42,7 @@ namespace Hearthtone2.MonoFront
 					Deck = new List<Card> { new Fireball(), new BluegillWarrior(), new Fireball(), new Fireball(), new Fireball(), new Fireball() }
 				});
 			CurrentGameMode = GameMode.SelectCard;
+			CardFaceStorage = new CardFaceStorage(this);
         }
 
         /// <summary>
@@ -52,8 +55,12 @@ namespace Hearthtone2.MonoFront
         {
 	        Components.Add(new TableComponent(this));
 			Components.Add(new TargetArrowComponent(this));
+
 			Components.Add(new DeckComponent(this, Table.Player1, new Point(850, 550)));
 			Components.Add(new DeckComponent(this, Table.Player2, new Point(850, -20)));
+
+			Components.Add(new HandComponent(this, Table.Player1, new Point(0, 550)));
+			Components.Add(new HandComponent(this, Table.Player2, new Point(0, -20)));
 
             base.Initialize();
         }
@@ -64,7 +71,7 @@ namespace Hearthtone2.MonoFront
         /// </summary>
         protected override void LoadContent()
         {
-
+	        CardFaceStorage.LoadContent();
         }
 
         /// <summary>
