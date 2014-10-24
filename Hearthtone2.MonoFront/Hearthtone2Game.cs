@@ -23,6 +23,7 @@ namespace Hearthtone2.MonoFront
 		public PlacedCard CurrentlyPlayingCard;
 	    public CardFaceStorage CardFaceStorage;
         public AvatarStorage AvatarStorage;
+        public AbilityStorage AbilityStorage;
 
         public Hearthtone2Game()
         {
@@ -48,6 +49,7 @@ namespace Hearthtone2.MonoFront
 			CurrentGameMode = GameMode.SelectCard;
 			CardFaceStorage = new CardFaceStorage(this);
             AvatarStorage = new AvatarStorage(this);
+            AbilityStorage = new AbilityStorage(this);
         }
 
         /// <summary>
@@ -61,16 +63,16 @@ namespace Hearthtone2.MonoFront
 	        Components.Add(new TableComponent(this));
 
             Components.Add(new DeckComponent(this, Table.Player1, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width, GraphicsDevice.Viewport.Height - PlacedCard.Height)));
-            Components.Add(new DeckComponent(this, Table.Player2, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width, -20)));
-
             Components.Add(new HandComponent(this, Table.Player1, new Point(0, GraphicsDevice.Viewport.Height - PlacedCard.Height)));
-            Components.Add(new HandComponent(this, Table.Player2, new Point(0, -20)));
-
             Components.Add(new PlacedMinionsComponent(this, Table.Player1, new Point(0, GraphicsDevice.Viewport.Height - 2 * PlacedCard.Height)));
-            Components.Add(new PlacedMinionsComponent(this, Table.Player2, new Point(0, PlacedCard.Height)));
+            Components.Add(new HeroAvatarComponent(this, Table.Player1, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width - HeroAvatarComponent.Width, GraphicsDevice.Viewport.Height - HeroAvatarComponent.Height - HeroAbilityComponent.Height)));
+            Components.Add(new HeroAbilityComponent(this, Table.Player1, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width - HeroAvatarComponent.Width, GraphicsDevice.Viewport.Height - HeroAvatarComponent.Height)));
 
-            Components.Add(new HeroComponent(this, Table.Player1, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width - HeroComponent.Width, GraphicsDevice.Viewport.Height - HeroComponent.Height)));
-            Components.Add(new HeroComponent(this, Table.Player2, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width - HeroComponent.Width, 0)));
+            Components.Add(new DeckComponent(this, Table.Player2, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width, -20)));
+            Components.Add(new HandComponent(this, Table.Player2, new Point(0, -20)));
+            Components.Add(new PlacedMinionsComponent(this, Table.Player2, new Point(0, PlacedCard.Height)));
+            Components.Add(new HeroAvatarComponent(this, Table.Player2, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width - HeroAvatarComponent.Width, 0)));
+            Components.Add(new HeroAbilityComponent(this, Table.Player2, new Point(GraphicsDevice.Viewport.Width - PlacedCard.Width - HeroAvatarComponent.Width, HeroAvatarComponent.Height)));
 
             Components.Add(new TargetArrowComponent(this));
 
@@ -85,6 +87,7 @@ namespace Hearthtone2.MonoFront
         {
 	        CardFaceStorage.LoadContent();
             AvatarStorage.LoadContent();
+            AbilityStorage.LoadContent();
         }
 
         /// <summary>

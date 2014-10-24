@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Hearthtone2.MonoFront.Components
 {
-    public class HeroComponent : DrawableGameComponent
+    public class HeroAvatarComponent : DrawableGameComponent
     {
         public const int Width = 87;
         public const int Height = 100;
@@ -16,7 +16,7 @@ namespace Hearthtone2.MonoFront.Components
         private readonly Rectangle _position;
         private MouseState _oldMouseState;
 
-        public HeroComponent(Hearthtone2Game game, Hero player, Point position)
+        public HeroAvatarComponent(Hearthtone2Game game, Hero player, Point position)
             : base(game)
         {
             _game = game;
@@ -37,13 +37,15 @@ namespace Hearthtone2.MonoFront.Components
                     _game.CurrentGameMode = GameMode.SelectCard;
                     _game.CurrentlyPlayingCard = null;
                 }
-
-                var minion = _game.CurrentlyPlayingCard.Card as Minion;
-                if (minion != null && minion.CanFight)
+                else
                 {
-                    minion.DealDamage(_player);
-                    _game.CurrentGameMode = GameMode.SelectCard;
-                    _game.CurrentlyPlayingCard = null;
+                    var minion = _game.CurrentlyPlayingCard.Card as Minion;
+                    if (minion != null && minion.CanFight)
+                    {
+                        minion.DealDamage(_player);
+                        _game.CurrentGameMode = GameMode.SelectCard;
+                        _game.CurrentlyPlayingCard = null;
+                    }
                 }
             }
 

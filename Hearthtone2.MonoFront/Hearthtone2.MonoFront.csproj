@@ -52,8 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DeckComponent.cs" />
-    <Compile Include="Components\HeroComponent.cs" />
+    <Compile Include="Components\HeroAbilityComponent.cs" />
+    <Compile Include="Components\HeroAvatarComponent.cs" />
     <Compile Include="Content\AvatarStorage.cs" />
+    <Compile Include="Content\AbilityStorage.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="Components\HandComponent.cs" />
     <Compile Include="Components\PlacedCard.cs" />
