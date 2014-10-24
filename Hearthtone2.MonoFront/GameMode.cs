@@ -1,4 +1,4 @@
-﻿namespace Hearthtone2.MonoFront.Components
+﻿namespace Hearthtone2.MonoFront
 {
 	public enum GameMode
 	{

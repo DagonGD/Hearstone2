@@ -22,7 +22,6 @@ namespace Hearthtone2.MonoFront
 		public GameMode CurrentGameMode;
 		public PlacedCard CurrentlyPlayingCard;
 	    public CardFaceStorage CardFaceStorage;
-	    public PlacedCardsStorage PlacedCardsStorage;
 
         public Hearthtone2Game()
         {
@@ -44,7 +43,6 @@ namespace Hearthtone2.MonoFront
 				});
 			CurrentGameMode = GameMode.SelectCard;
 			CardFaceStorage = new CardFaceStorage(this);
-			PlacedCardsStorage = new PlacedCardsStorage();
         }
 
         /// <summary>
@@ -56,13 +54,17 @@ namespace Hearthtone2.MonoFront
         protected override void Initialize()
         {
 	        Components.Add(new TableComponent(this));
-			Components.Add(new TargetArrowComponent(this));
-
+			
 			Components.Add(new DeckComponent(this, Table.Player1, new Point(850, 550)));
 			Components.Add(new DeckComponent(this, Table.Player2, new Point(850, -20)));
 
 			Components.Add(new HandComponent(this, Table.Player1, new Point(0, 550)));
 			Components.Add(new HandComponent(this, Table.Player2, new Point(0, -20)));
+
+			Components.Add(new PlacedMinionsComponent(this, Table.Player1, new Point(0, 360)));
+			Components.Add(new PlacedMinionsComponent(this, Table.Player2, new Point(0, 170)));
+
+            Components.Add(new TargetArrowComponent(this));
 
             base.Initialize();
         }
