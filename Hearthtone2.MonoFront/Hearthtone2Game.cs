@@ -52,6 +52,8 @@ namespace Hearthtone2.MonoFront
         {
 	        Components.Add(new TableComponent(this));
 			Components.Add(new TargetArrowComponent(this));
+			Components.Add(new DeckComponent(this, Table.Player1, new Point(850, 550)));
+			Components.Add(new DeckComponent(this, Table.Player2, new Point(850, -20)));
 
             base.Initialize();
         }

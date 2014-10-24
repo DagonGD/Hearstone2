@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hearstone2.Core;
 using Hearstone2.Core.Cards;
 using Hearstone2.Core.Cards.Druid;
 using Hearstone2.Core.Cards.Mage;
@@ -14,18 +13,13 @@ namespace Hearthtone2.MonoFront.Components
 {
 	public class TableComponent : DrawableGameComponent
 	{
-		//Sizes
-		private const int CardWidth = 307/2;
-		private const int CardHeight = 465/2;
-
 		private readonly Hearthtone2Game _game;
 		private KeyboardState _oldKeyboardState;
 		private MouseState _oldMouseState;
 
 		//Textures
 		private Dictionary<Type, Texture2D> _cardFaces;
-		private Texture2D _cardBack;
-
+		
 		private List<PlacedCard> _placedCards;
 
 		public TableComponent(Hearthtone2Game game)
@@ -54,8 +48,6 @@ namespace Hearthtone2.MonoFront.Components
 			_cardFaces.Add(typeof(IronbarkProtector), _game.Content.Load<Texture2D>("Classes\\Druid\\Cards\\IronbarkProtector"));
 			_cardFaces.Add(typeof(Fireball), _game.Content.Load<Texture2D>("Classes\\Mage\\Cards\\Fireball"));
 			_cardFaces.Add(typeof(BluegillWarrior), _game.Content.Load<Texture2D>("Classes\\Neutral\\Cards\\BluegillWarrior"));
-
-			_cardBack = _game.Content.Load<Texture2D>("CardBacks\\Card_Back_Legend.png");
 
 			base.LoadContent();
 		}
@@ -194,10 +186,10 @@ namespace Hearthtone2.MonoFront.Components
 		{
 			_placedCards.Clear();
 
-			_placedCards.AddRange(_game.Table.Player1.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 550, CardWidth, CardHeight) }));
-			_placedCards.AddRange(_game.Table.Player1.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 360, CardWidth, CardHeight) }));
-			_placedCards.AddRange(_game.Table.Player2.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, -20, CardWidth, CardHeight) }));
-			_placedCards.AddRange(_game.Table.Player2.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 170, CardWidth, CardHeight) }));
+			_placedCards.AddRange(_game.Table.Player1.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, 550, PlacedCard.Width, PlacedCard.Height) }));
+			_placedCards.AddRange(_game.Table.Player1.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 360, PlacedCard.Width, PlacedCard.Height) }));
+			_placedCards.AddRange(_game.Table.Player2.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, -20, PlacedCard.Width, PlacedCard.Height) }));
+			_placedCards.AddRange(_game.Table.Player2.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 170, PlacedCard.Width, PlacedCard.Height) }));
 		}
 
 		private void DrawCards(SpriteBatch spriteBatch)
@@ -206,9 +198,6 @@ namespace Hearthtone2.MonoFront.Components
 			{
 				spriteBatch.Draw(_cardFaces[card.Card.GetType()], card.Position, card.Color);
 			}
-
-			spriteBatch.Draw(_cardBack, new Rectangle(850, -20, CardWidth, CardHeight), _game.Table.Player2.Deck.Any() ? Color.White : Color.Red);
-			spriteBatch.Draw(_cardBack, new Rectangle(850, 550, CardWidth, CardHeight), _game.Table.Player1.Deck.Any() ? Color.White : Color.Red);
 		}
 
 		private PlacedCard GetCardByPosition(Point position)
