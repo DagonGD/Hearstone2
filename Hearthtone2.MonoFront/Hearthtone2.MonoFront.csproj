@@ -50,6 +50,7 @@
     <Compile Include="Components\GameMode.cs" />
     <Compile Include="Components\HandComponent.cs" />
     <Compile Include="Components\PlacedCard.cs" />
+    <Compile Include="Components\PlacedMinionsComponent.cs" />
     <Compile Include="Components\TableComponent.cs" />
     <Compile Include="Components\TargetArrowComponent.cs" />
     <Compile Include="Content\CardFaceStorage.cs" />

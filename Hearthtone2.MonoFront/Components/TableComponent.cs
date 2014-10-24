@@ -49,8 +49,6 @@ namespace Hearthtone2.MonoFront.Components
 				_game.Table.CurrentPlayer.DrawCard();
 			}
 
-			PlaceCards();
-
 			var placedCard = _game.PlacedCardsStorage.GetCardByPosition(newMouseState.Position);
 			
 			if (placedCard != null)
@@ -164,16 +162,6 @@ namespace Hearthtone2.MonoFront.Components
 			spriteBatch.End();
 
 			base.Draw(gameTime);
-		}
-
-		private void PlaceCards()
-		{
-			_game.PlacedCardsStorage.Clear();
-
-			_game.PlacedCardsStorage.PlaceCards(_game.Table.Player1.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, 550, PlacedCard.Width, PlacedCard.Height) }));
-			_game.PlacedCardsStorage.PlaceCards(_game.Table.Player1.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 360, PlacedCard.Width, PlacedCard.Height) }));
-			_game.PlacedCardsStorage.PlaceCards(_game.Table.Player2.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, -20, PlacedCard.Width, PlacedCard.Height) }));
-			_game.PlacedCardsStorage.PlaceCards(_game.Table.Player2.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, 170, PlacedCard.Width, PlacedCard.Height) }));
 		}
 
 		private void DrawCards(SpriteBatch spriteBatch)

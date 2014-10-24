@@ -64,6 +64,9 @@ namespace Hearthtone2.MonoFront
 			Components.Add(new HandComponent(this, Table.Player1, new Point(0, 550)));
 			Components.Add(new HandComponent(this, Table.Player2, new Point(0, -20)));
 
+			Components.Add(new PlacedMinionsComponent(this, Table.Player1, new Point(0, 360)));
+			Components.Add(new PlacedMinionsComponent(this, Table.Player2, new Point(0, 170)));
+
             base.Initialize();
         }
 
