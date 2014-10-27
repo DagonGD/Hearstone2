@@ -9,7 +9,7 @@ namespace Hearthtone2.MonoFront.Components
 		public const int Width = 307 / 2;
 		public const int Height = 465 / 2;
 
-		public Card Card { get; set; }
+		public ManaCostCard Card { get; set; }
 		public Rectangle Position { get; set; }
 		public Color Color { get; set; }
 

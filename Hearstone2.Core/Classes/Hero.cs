@@ -23,7 +23,12 @@ namespace Hearstone2.Core.Classes
 		    Health = 30;
 		}
 
-		public abstract void HeroAbility();
+		public abstract HeroAbility HeroAbility { get; }
+
+		public bool IsAlive
+		{
+			get { return Health > 0; }
+		}
 
 		public void GainMana()
 		{

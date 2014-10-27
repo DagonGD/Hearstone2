@@ -43,7 +43,7 @@ namespace Hearthtone2.MonoFront.Components
 
                 if (targetCard != null)
                 {
-                    if (_game.Table.CurrentPlayer == _player)
+					if (_game.Table.CurrentPlayer == _player && _player.IsAlive)
                     {
                         targetCard.Color = ((Minion) targetCard.Card).CanFight ? Color.LightGreen : Color.Red;
                     }
@@ -55,7 +55,7 @@ namespace Hearthtone2.MonoFront.Components
                         switch (_game.CurrentGameMode)
                         {
                             case GameMode.SelectCard:
-                                if (minion.CanFight && _game.Table.CurrentPlayer == _player)
+								if (minion.CanFight && _game.Table.CurrentPlayer == _player && _player.IsAlive)
                                 {
                                     _game.CurrentlyPlayingCard = targetCard;
                                     _game.CurrentGameMode = GameMode.SelectTarget;

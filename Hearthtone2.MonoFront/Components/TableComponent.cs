@@ -48,6 +48,7 @@ namespace Hearthtone2.MonoFront.Components
 				_game.Table.NextPlayer();
 				_game.Table.CurrentPlayer.GainMana();
                 _game.Table.CurrentPlayer.RefreshMinions();
+				_game.Table.CurrentPlayer.HeroAbility.Refresh();
 				_game.Table.CurrentPlayer.DrawCard();
 			}
 

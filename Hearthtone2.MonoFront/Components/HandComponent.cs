@@ -37,7 +37,7 @@ namespace Hearthtone2.MonoFront.Components
 		    _placedCards.Clear();
 			_placedCards.AddRange(_player.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, _position.Y, PlacedCard.Width, PlacedCard.Height) }));
 
-		    if (_game.Table.CurrentPlayer == _player)
+		    if (_game.Table.CurrentPlayer == _player && _player.IsAlive)
 		    {
 		        var newMouseState = Mouse.GetState();
 		        var targetCard = _placedCards.FirstOrDefault(c => c.Position.Contains(newMouseState.Position));

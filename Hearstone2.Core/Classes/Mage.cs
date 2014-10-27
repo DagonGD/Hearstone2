@@ -1,10 +1,19 @@
-﻿namespace Hearstone2.Core.Classes
+﻿using Hearstone2.Core.Cards;
+
+namespace Hearstone2.Core.Classes
 {
 	public class Mage : Hero
 	{
-		public override void HeroAbility()
+		private readonly HeroAbility _heroAbility;
+
+		public Mage()
 		{
-			throw new System.NotImplementedException();
+			_heroAbility = new MageAbility(this);
+		}
+
+		public override HeroAbility HeroAbility
+		{
+			get { return _heroAbility; }
 		}
 	}
 }

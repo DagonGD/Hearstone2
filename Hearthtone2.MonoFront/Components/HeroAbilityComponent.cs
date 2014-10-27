@@ -1,4 +1,5 @@
-﻿using Hearstone2.Core.Classes;
+﻿using Hearstone2.Core.Cards;
+using Hearstone2.Core.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -30,13 +31,21 @@ namespace Hearthtone2.MonoFront.Components
 
             if (_game.CurrentGameMode == GameMode.SelectCard && _game.Table.CurrentPlayer == _player)
             {
-                _color = _player.Mana >= 2 ? Color.LightGreen : Color.Red;
+                _color = _player.HeroAbility.CanPlay() ? Color.LightGreen : Color.Red;
 
                 if (_position.Contains(newMouseState.Position))
                 {
                     if (newMouseState.LeftButton == ButtonState.Pressed &&_oldMouseState.LeftButton == ButtonState.Released)
                     {
-                 
+	                    if (_player.HeroAbility is IMinionTargetSpell || _player.HeroAbility is IHeroTargetSpell)
+	                    {
+							_game.CurrentlyPlayingCard = new PlacedCard { Card = _player.HeroAbility, Position = _position, Color = Color.White };
+							_game.CurrentGameMode = GameMode.SelectTarget;
+	                    }
+	                    else if(_player.HeroAbility is ISpellWithoutTarget)
+	                    {
+		                    ((ISpellWithoutTarget)_player.HeroAbility).Play();
+	                    }
                     }
                 }
                 else

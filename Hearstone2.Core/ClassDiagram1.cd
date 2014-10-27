@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Hearstone2.Core.Cards.Card" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.ManaCostCard" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAEAAAAAAAAAAgAAAAAAAgAAAAgAAAAA=</HashCode>
+      <FileName>Cards\ManaCostCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.Minion" Collapsed="true">
+    <Position X="2" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgKASAAAhAAAAAAAEACAAQgAAAAAIAgAAEAAAIAAA=</HashCode>
+      <FileName>Cards\Minion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.NoSpaceOnTableException" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\NoSpaceOnTableException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.NotEnoughManaException" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\NotEnoughManaException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.Spell" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Spell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.Weapon" Collapsed="true">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.Druid.IronbarkProtector" Collapsed="true">
+    <Position X="1" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAEAAAAAAAAAAAIAAAAAAgAIAAA=</HashCode>
+      <FileName>Cards\Druid\IronbarkProtector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.Mage.Fireball" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAgAAAAA=</HashCode>
+      <FileName>Cards\Mage\Fireball.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Hearstone2.Core.Cards.Neutral.BluegillWarrior" Collapsed="true">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAEAAAAAAAAAAAAAAAAIAAAAAAgAIAAA=</HashCode>
+      <FileName>Cards\Neutral\BluegillWarrior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Classes.Druid" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Druid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Classes.DruidAbility" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAgAAAAA=</HashCode>
+      <FileName>Classes\DruidAbility.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Hearstone2.Core.Classes.Hero" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACgAgACgAAAAAAABAAAAAEAAAAAAgAABAIAAAAAA=</HashCode>
+      <FileName>Classes\Hero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Classes.HeroAbility" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgEAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Classes\HeroAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Classes.Mage" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Mage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hearstone2.Core.Classes.MageAbility" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAgAAAAA=</HashCode>
+      <FileName>Classes\MageAbility.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Hearstone2.Core.Table" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAwAAAAAAAAAAAAAAAAAAAgEAAAAA=</HashCode>
+      <FileName>Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Hearstone2.Core.Cards.IHeroTargetSpell" Collapsed="true">
+    <Position X="14.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Cards\IHeroTargetSpell.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Hearstone2.Core.Cards.IMinionTargetSpell" Collapsed="true">
+    <Position X="16.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Cards\IMinionTargetSpell.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Hearstone2.Core.Cards.ISpellWithoutTarget" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Cards\ISpellWithoutTarget.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -53,10 +53,16 @@
     <Compile Include="Cards\Weapon.cs" />
     <Compile Include="Cards\NoSpaceOnTableException.cs" />
     <Compile Include="Classes\Druid.cs" />
+    <Compile Include="Classes\DruidAbility.cs" />
+    <Compile Include="Classes\HeroAbility.cs" />
     <Compile Include="Classes\Mage.cs" />
     <Compile Include="Classes\Hero.cs" />
+    <Compile Include="Classes\MageAbility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
