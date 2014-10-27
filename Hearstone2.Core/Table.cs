@@ -1,4 +1,4 @@
-﻿using Hearstone2.Core.Classes;
+﻿using Hearstone2.Core.Heroes;
 
 namespace Hearstone2.Core
 {

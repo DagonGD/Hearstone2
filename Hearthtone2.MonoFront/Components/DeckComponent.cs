@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Hearstone2.Core.Classes;
+using Hearstone2.Core.Heroes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

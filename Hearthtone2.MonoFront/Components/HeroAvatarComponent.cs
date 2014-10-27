@@ -1,5 +1,5 @@
 ﻿using Hearstone2.Core.Cards;
-using Hearstone2.Core.Classes;
+using Hearstone2.Core.Heroes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

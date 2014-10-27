@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hearstone2.Core.Classes;
+using Hearstone2.Core.Heroes.Druid;
+using Hearstone2.Core.Heroes.Mage;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Hearthtone2.MonoFront.Content

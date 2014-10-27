@@ -1,6 +1,6 @@
 ﻿using Hearstone2.Core.Cards;
 
-namespace Hearstone2.Core.Classes
+namespace Hearstone2.Core.Heroes.Druid
 {
 	public class DruidAbility : HeroAbility, IMinionTargetSpell, IHeroTargetSpell
 	{
