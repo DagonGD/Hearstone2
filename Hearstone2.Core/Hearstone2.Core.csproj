@@ -55,6 +55,8 @@
     <Compile Include="Heroes\Druid\Druid.cs" />
     <Compile Include="Heroes\Druid\DruidAbility.cs" />
     <Compile Include="Heroes\HeroAbility.cs" />
+    <Compile Include="Heroes\Hunter\Hunter.cs" />
+    <Compile Include="Heroes\Hunter\HunterAbility.cs" />
     <Compile Include="Heroes\Mage\Mage.cs" />
     <Compile Include="Heroes\Hero.cs" />
     <Compile Include="Heroes\Mage\MageAbility.cs" />

@@ -20,9 +20,9 @@ namespace Hearthtone2.MonoFront.Content
 
 		public void LoadContent()
 		{
-			_cardFaces.Add(typeof(IronbarkProtector), _game.Content.Load<Texture2D>("Classes\\Druid\\Cards\\IronbarkProtector"));
-			_cardFaces.Add(typeof(Fireball), _game.Content.Load<Texture2D>("Classes\\Mage\\Cards\\Fireball"));
-			_cardFaces.Add(typeof(BluegillWarrior), _game.Content.Load<Texture2D>("Classes\\Neutral\\Cards\\BluegillWarrior"));
+			_cardFaces.Add(typeof(IronbarkProtector), _game.Content.Load<Texture2D>("Heroes\\Druid\\Cards\\IronbarkProtector"));
+			_cardFaces.Add(typeof(Fireball), _game.Content.Load<Texture2D>("Heroes\\Mage\\Cards\\Fireball"));
+			_cardFaces.Add(typeof(BluegillWarrior), _game.Content.Load<Texture2D>("Heroes\\Neutral\\Cards\\BluegillWarrior"));
 		}
 
 		public Texture2D GetCardFace(Type type)

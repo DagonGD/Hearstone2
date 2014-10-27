@@ -41,13 +41,15 @@
   <ItemGroup>
     <Content Include="Content\Backgrounds\bg1.jpg" />
     <Content Include="Content\CardBacks\Card_Back_Legend.png" />
-    <Content Include="Content\Classes\Druid\Ability.png" />
-    <Content Include="Content\Classes\Druid\Avatar.png" />
-    <Content Include="Content\Classes\Druid\Cards\IronbarkProtector.png" />
-    <Content Include="Content\Classes\Mage\Ability.png" />
-    <Content Include="Content\Classes\Mage\Avatar.png" />
-    <Content Include="Content\Classes\Mage\Cards\Fireball.png" />
-    <Content Include="Content\Classes\Neutral\Cards\BluegillWarrior.png" />
+    <Content Include="Content\Heroes\Druid\Ability.png" />
+    <Content Include="Content\Heroes\Druid\Avatar.png" />
+    <Content Include="Content\Heroes\Druid\Cards\IronbarkProtector.png" />
+    <Content Include="Content\Heroes\Hunter\Ability.png" />
+    <Content Include="Content\Heroes\Hunter\Avatar.png" />
+    <Content Include="Content\Heroes\Mage\Ability.png" />
+    <Content Include="Content\Heroes\Mage\Avatar.png" />
+    <Content Include="Content\Heroes\Mage\Cards\Fireball.png" />
+    <Content Include="Content\Heroes\Neutral\Cards\BluegillWarrior.png" />
     <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +82,9 @@
       <Project>{c3e21d23-2ddd-47d7-aafe-6466d401d031}</Project>
       <Name>Hearstone2.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Heroes\Hunter\Cards\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets" Condition="Exists('..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" />

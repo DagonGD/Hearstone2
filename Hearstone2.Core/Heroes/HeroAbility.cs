@@ -21,6 +21,11 @@ namespace Hearstone2.Core.Heroes
 			return base.CanPlay() && !_isExhausted;
 		}
 
+		public override int ManaCost
+		{
+			get { return 2; }
+		}
+
 		public override void Play()
 		{
 			_isExhausted = true;

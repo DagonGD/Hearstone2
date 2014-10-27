@@ -13,11 +13,6 @@ namespace Hearstone2.Core.Heroes.Mage
 			get { return "Fireball"; }
 		}
 
-		public override int ManaCost
-		{
-			get { return 2; }
-		}
-
 		public void Play(Minion target)
 		{
 			target.ReceiveDamage(1);

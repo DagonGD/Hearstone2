@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hearstone2.Core.Heroes.Druid;
+using Hearstone2.Core.Heroes.Hunter;
 using Hearstone2.Core.Heroes.Mage;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -19,8 +20,9 @@ namespace Hearthtone2.MonoFront.Content
 
         public void LoadContent()
         {
-            _avatars.Add(typeof(Druid), _game.Content.Load<Texture2D>("Classes\\Druid\\Avatar"));
-            _avatars.Add(typeof(Mage), _game.Content.Load<Texture2D>("Classes\\Mage\\Avatar"));
+			_avatars.Add(typeof(Druid), _game.Content.Load<Texture2D>("Heroes\\Druid\\Avatar"));
+			_avatars.Add(typeof(Mage), _game.Content.Load<Texture2D>("Heroes\\Mage\\Avatar"));
+			_avatars.Add(typeof(Hunter), _game.Content.Load<Texture2D>("Heroes\\Hunter\\Avatar"));
         }
 
         public Texture2D GetAvatar(Type type)

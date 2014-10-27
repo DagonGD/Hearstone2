@@ -13,11 +13,6 @@ namespace Hearstone2.Core.Heroes.Druid
 			get { return "Shapeshift"; }
 		}
 
-		public override int ManaCost
-		{
-			get { return 2; }
-		}
-
 		public void Play(Minion target)
 		{
 			throw new System.NotImplementedException();
