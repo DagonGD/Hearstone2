@@ -45,6 +45,7 @@
     <Compile Include="Cards\IMinionTargetSpell.cs" />
     <Compile Include="Cards\ISpellWithoutTarget.cs" />
     <Compile Include="Cards\Mage\Fireball.cs" />
+    <Compile Include="Cards\ManaCostCard.cs" />
     <Compile Include="Cards\Minion.cs" />
     <Compile Include="Cards\Neutral\BluegillWarrior.cs" />
     <Compile Include="Cards\NotEnoughManaException.cs" />
