@@ -1,79 +1,56 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Hearstone2.Core.Cards;
 using Hearstone2.Core.Heroes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Hearthtone2.MonoFront.Components
 {
-	public class HandComponent: DrawableGameComponent
+	public class HandComponent: BaseCardGameComponent
 	{
-        private readonly Hearthtone2Game _game;
 		private readonly Hero _player;
-		private readonly Point _position;
-		private readonly List<PlacedCard> _placedCards;
-	    private MouseState _oldMouseState;
 
 	    public HandComponent(Hearthtone2Game game, Hero player, Point position)
-			: base(game)
+			: base(game, new Rectangle(position.X, position.Y, game.GraphicsDevice.Viewport.Width, PlacedCard.Height))
 		{
-			_game = game;
 			_player = player;
-			_position = position;
-			_placedCards = new List<PlacedCard>();
 		}
 
-        public override void Initialize()
-        {
-            _oldMouseState = Mouse.GetState();
-
-            base.Initialize();
-        }
-
-		public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
 		{
-		    _placedCards.Clear();
-			_placedCards.AddRange(_player.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, _position.Y, PlacedCard.Width, PlacedCard.Height) }));
+		    InitCards(_player.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, Position.Y, PlacedCard.Width, PlacedCard.Height) }).ToList());
+			base.Update(gameTime);
+		}
 
-		    if (_game.Table.CurrentPlayer == _player && _player.IsAlive)
-		    {
-		        var newMouseState = Mouse.GetState();
-		        var targetCard = _placedCards.FirstOrDefault(c => c.Position.Contains(newMouseState.Position));
+		public override void OnCardOver(PlacedCard card)
+		{
+			card.Color = card.Card.CanPlay() ? Color.LightGreen : Color.Red;
+		}
 
-		        if (targetCard != null)
-		        {
-		            targetCard.Color = targetCard.Card.CanPlay() ? Color.LightGreen : Color.Red;
-                    
-		            if (_game.CurrentGameMode == GameMode.SelectCard && newMouseState.LeftButton == ButtonState.Pressed && _oldMouseState.LeftButton == ButtonState.Released)
-		            {
-                        if ((targetCard.Card is Minion || targetCard.Card is ISpellWithoutTarget) && targetCard.Card.CanPlay())
-		                {
-		                    targetCard.Card.Play();
-		                }
+		public override void OnCardClick(PlacedCard card)
+		{
+			if (Game.CurrentGameMode == GameMode.SelectCard)
+			{
+				if ((card.Card is Minion || card.Card is ISpellWithoutTarget) && card.Card.CanPlay())
+				{
+					card.Card.Play();
+				}
 
-                        if (targetCard.Card is IMinionTargetSpell)
-		                {
-                            _game.CurrentlyPlayingCard = targetCard;
-		                    _game.CurrentGameMode = GameMode.SelectTarget;
-		                }
-		            }
-		        }
-
-		        _oldMouseState = newMouseState;
-		    }
-
-		    base.Update(gameTime);
+				if (card.Card is IMinionTargetSpell)
+				{
+					Game.CurrentlyPlayingCard = card;
+					Game.CurrentGameMode = GameMode.SelectTarget;
+				}
+			}
 		}
 
 		public override void Draw(GameTime gameTime)
 		{
-			var spriteBatch = new SpriteBatch(_game.GraphicsDevice);
+			var spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 			spriteBatch.Begin();
-			foreach (var card in _placedCards)
+			foreach (var card in PlacedCards)
 			{
-				spriteBatch.Draw(_game.CardFaceStorage.GetCardFace(card.Card.GetType()), card.Position, card.Color);
+				spriteBatch.Draw(Game.CardFaceStorage.GetCardFace(card.Card.GetType()), card.Position, card.Color);
 			}
 			spriteBatch.End();
 
