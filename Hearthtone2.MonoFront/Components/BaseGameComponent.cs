@@ -54,6 +54,11 @@ namespace Hearthtone2.MonoFront.Components
 					OnRightClick();
 				}
 			}
+			else
+			{
+				OnMouseOutside(newMouseState.Position);
+			}
+
 
 			foreach (var key in newKeyboardState.GetPressedKeys())
 			{
@@ -72,6 +77,11 @@ namespace Hearthtone2.MonoFront.Components
 		public virtual void OnMouseOver(Point position)
 		{
 			
+		}
+
+		public virtual void OnMouseOutside(Point position)
+		{
+
 		}
 
 		public virtual void OnClick(Point position)

@@ -21,7 +21,14 @@ namespace Hearthtone2.MonoFront.Components
 
 		public override void OnCardOver(PlacedCard card)
 		{
-			card.Color = card.Card.CanPlay() ? Color.LightGreen : Color.Red;
+			if (Game.CurrentGameMode == GameMode.SelectCard && Game.Table.CurrentPlayer == Owner)
+			{
+				card.Color = card.Card.CanPlay() ? Color.LightGreen : Color.Red;
+			}
+			else
+			{
+				card.Color = Color.White;
+			}
 		}
 
 		public override void OnCardClick(PlacedCard card)

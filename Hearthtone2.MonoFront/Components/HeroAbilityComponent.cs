@@ -23,6 +23,15 @@ namespace Hearthtone2.MonoFront.Components
 			{
 				_color = Owner.HeroAbility.CanPlay() ? Color.LightGreen : Color.Red;
 			}
+			else
+			{
+				_color = Color.White;
+			}
+		}
+
+		public override void OnMouseOutside(Point position)
+		{
+			_color = Color.White;
 		}
 
 		public override void OnClick(Point position)
