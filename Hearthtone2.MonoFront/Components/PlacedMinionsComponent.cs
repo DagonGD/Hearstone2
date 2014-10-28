@@ -1,124 +1,104 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Hearstone2.Core.Cards;
 using Hearstone2.Core.Heroes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Hearthtone2.MonoFront.Components
 {
-	public class PlacedMinionsComponent: DrawableGameComponent
+	public class PlacedMinionsComponent : BaseCardGameComponent
 	{
-        private readonly Hearthtone2Game _game;
 		private readonly Hero _player;
-		private readonly Point _position;
-		private readonly List<PlacedCard> _placedCards;
-	    private MouseState _oldMouseState;
 
 	    public PlacedMinionsComponent(Hearthtone2Game game, Hero player, Point position)
-			: base(game)
+			: base(game, new Rectangle(position.X, position.Y, game.GraphicsDevice.Viewport.Width, PlacedCard.Height))
 		{
-			_game = game;
 			_player = player;
-			_position = position;
-			_placedCards = new List<PlacedCard>();
 		}
 
-        public override void Initialize()
-        {
-            _oldMouseState = Mouse.GetState();
-
-            base.Initialize();
-        }
-
-		public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
 		{
-            _placedCards.Clear();
-			_placedCards.AddRange(_player.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, _position.Y, PlacedCard.Width, PlacedCard.Height), Color = Color.White }));
+			InitCards(_player.PlacedMinions.Select((card, index) =>new PlacedCard{Card = card,Position = new Rectangle(index*200, Position.Y, PlacedCard.Width, PlacedCard.Height),Color = Color.White}).ToList());
 
-		    
-                var newMouseState = Mouse.GetState();
-                var targetCard = _placedCards.FirstOrDefault(c => c.Position.Contains(newMouseState.Position));
-				var taunts = _placedCards.Where(c => ((Minion)c.Card).IsTaunt).ToList();
+			base.Update(gameTime);
+		}
 
-                if (targetCard != null)
-                {
-					var targetMinion = (Minion)targetCard.Card;
+		public override void OnCardOver(PlacedCard card)
+		{
+			var taunts = PlacedCards.Where(c => ((Minion)c.Card).IsTaunt).ToList();
+			var minion = card.Card as Minion;
 
-	                switch (_game.CurrentGameMode)
-	                {
-		                case GameMode.SelectCard:
-							if (_game.Table.CurrentPlayer == _player && _player.IsAlive)
-							{
-								targetCard.Color = ((Minion)targetCard.Card).CanFight ? Color.LightGreen : Color.Red;
-							}
+ 			switch (Game.CurrentGameMode)
+	        {
+		        case GameMode.SelectCard:
+					if (Game.Table.CurrentPlayer == _player && _player.IsAlive)
+					{
+						card.Color = ((Minion)card.Card).CanFight ? Color.LightGreen : Color.Red;
+					}
+			        break;
+		        case GameMode.SelectTarget:
+					if (minion.IsTaunt || !taunts.Any() || Game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
+			        {
+				        card.Color = Color.LightGreen;
+			        }
+			        else
+			        {
+				        card.Color = Color.Red;
+						taunts.ForEach(t => t.Color = Color.LightGreen);
+			        }
+			        break;
+	        }
+		}
 
-			                break;
-		                case GameMode.SelectTarget:
-			                if (targetMinion.IsTaunt || !taunts.Any() || _game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
-			                {
-				                targetCard.Color = Color.LightGreen;
-			                }
-			                else
-			                {
-				                targetCard.Color = Color.Red;
-								taunts.ForEach(t => t.Color = Color.LightGreen);
-			                }
-			                break;
-	                }
+		public override void OnCardClick(PlacedCard card)
+		{
+			var taunts = PlacedCards.Where(c => ((Minion)c.Card).IsTaunt).ToList();
+			var targetMinion = card.Card as Minion;
 
-                    if (newMouseState.LeftButton == ButtonState.Pressed && _oldMouseState.LeftButton == ButtonState.Released)
+ 			switch (Game.CurrentGameMode)
+            {
+                case GameMode.SelectCard:
+					if (targetMinion.CanFight && Game.Table.CurrentPlayer == _player && _player.IsAlive)
                     {
-                        switch (_game.CurrentGameMode)
-                        {
-                            case GameMode.SelectCard:
-								if (targetMinion.CanFight && _game.Table.CurrentPlayer == _player && _player.IsAlive)
-                                {
-                                    _game.CurrentlyPlayingCard = targetCard;
-                                    _game.CurrentGameMode = GameMode.SelectTarget;
-                                }
-
-                                break;
-                            case GameMode.SelectTarget:
-                                if (_game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
-                                {
-                                    ((IMinionTargetSpell)_game.CurrentlyPlayingCard.Card).Play(targetMinion);
-                                    _game.CurrentlyPlayingCard = null;
-                                    _game.CurrentGameMode = GameMode.SelectCard;
-                                } else if (_game.CurrentlyPlayingCard.Card is Minion)
-                                {
-	                                if (targetMinion.IsTaunt || !taunts.Any())
-	                                {
-		                                ((Minion) _game.CurrentlyPlayingCard.Card).DealDamage(targetCard.Card as Minion);
-		                                ((Minion) targetCard.Card).DealDamage(_game.CurrentlyPlayingCard.Card as Minion);
-		                                _game.CurrentlyPlayingCard = null;
-		                                _game.CurrentGameMode = GameMode.SelectCard;
-	                                }
-	                                else
-	                                {
-		                                //Player should select taunt
-	                                }
-                                }
-
-                                _game.Table.Cleanup();
-                                break;
-                        }
+						Game.CurrentlyPlayingCard = card;
+						Game.CurrentGameMode = GameMode.SelectTarget;
                     }
-		    }
 
-            _oldMouseState = newMouseState;
+                    break;
+                case GameMode.SelectTarget:
+					if (Game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
+                    {
+						((IMinionTargetSpell)Game.CurrentlyPlayingCard.Card).Play(targetMinion);
+						Game.CurrentlyPlayingCard = null;
+						Game.CurrentGameMode = GameMode.SelectCard;
+					}
+					else if (Game.CurrentlyPlayingCard.Card is Minion)
+                    {
+	                    if (targetMinion.IsTaunt || !taunts.Any())
+	                    {
+							((Minion)Game.CurrentlyPlayingCard.Card).DealDamage(card.Card as Minion);
+							((Minion)card.Card).DealDamage(Game.CurrentlyPlayingCard.Card as Minion);
+							Game.CurrentlyPlayingCard = null;
+							Game.CurrentGameMode = GameMode.SelectCard;
+	                    }
+	                    else
+	                    {
+		                    //Player should select taunt
+	                    }
+                    }
 
-		    base.Update(gameTime);
+					Game.Table.Cleanup();
+                    break;
+            }
 		}
 
 		public override void Draw(GameTime gameTime)
 		{
-            var spriteBatch = new SpriteBatch(_game.GraphicsDevice);
+			var spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             spriteBatch.Begin();
-            foreach (var card in _placedCards)
+            foreach (var card in PlacedCards)
             {
-                spriteBatch.Draw(_game.CardFaceStorage.GetCardFace(card.Card.GetType()), card.Position, card.Color);
+				spriteBatch.Draw(Game.CardFaceStorage.GetCardFace(card.Card.GetType()), card.Position, card.Color);
             }
             spriteBatch.End();
 
