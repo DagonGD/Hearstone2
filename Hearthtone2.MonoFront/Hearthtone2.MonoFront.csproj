@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Content\Fonts\Arial.xnb" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +59,8 @@
     <Compile Include="Components\HeroAvatarComponent.cs" />
     <Compile Include="Content\AvatarStorage.cs" />
     <Compile Include="Content\AbilityStorage.cs" />
+    <Compile Include="Content\Font.cs" />
+    <Compile Include="Content\FontsStorage.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="Components\HandComponent.cs" />
     <Compile Include="Components\PlacedCard.cs" />

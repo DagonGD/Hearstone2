@@ -25,6 +25,7 @@ namespace Hearthtone2.MonoFront
 	    public CardFaceStorage CardFaceStorage;
         public AvatarStorage AvatarStorage;
         public AbilityStorage AbilityStorage;
+	    public FontsStorage FontsStorage;
 
         public Hearthtone2Game()
         {
@@ -51,6 +52,7 @@ namespace Hearthtone2.MonoFront
 			CardFaceStorage = new CardFaceStorage(this);
             AvatarStorage = new AvatarStorage(this);
             AbilityStorage = new AbilityStorage(this);
+			FontsStorage = new FontsStorage(this);
         }
 
         /// <summary>
@@ -89,6 +91,7 @@ namespace Hearthtone2.MonoFront
 	        CardFaceStorage.LoadContent();
             AvatarStorage.LoadContent();
             AbilityStorage.LoadContent();
+			FontsStorage.LoadContent();
         }
 
         /// <summary>

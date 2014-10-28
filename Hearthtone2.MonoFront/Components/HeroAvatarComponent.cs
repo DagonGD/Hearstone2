@@ -1,5 +1,6 @@
 ﻿using Hearstone2.Core.Cards;
 using Hearstone2.Core.Heroes;
+using Hearthtone2.MonoFront.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -58,6 +59,8 @@ namespace Hearthtone2.MonoFront.Components
             var spriteBatch = new SpriteBatch(_game.GraphicsDevice);
             spriteBatch.Begin();
             spriteBatch.Draw(_game.AvatarStorage.GetAvatar(_player.GetType()), _position, _player.Health > 0 ? Color.White : Color.Red);
+			spriteBatch.DrawString(_game.FontsStorage.GetFont(Font.Arial), _player.Health.ToString(), new Vector2(_position.X, _position.Y), Color.White);
+			spriteBatch.DrawString(_game.FontsStorage.GetFont(Font.Arial), _player.Mana.ToString()+"/"+_player.MaxMana.ToString(), new Vector2(_position.X + 4 * Width / 5, _position.Y), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
