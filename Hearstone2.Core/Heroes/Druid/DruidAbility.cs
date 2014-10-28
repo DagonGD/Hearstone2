@@ -20,7 +20,12 @@ namespace Hearstone2.Core.Heroes.Druid
 			target.DealDamage(Owner);
 		}
 
-		public void Play(Hero target)
+	    public bool CanPlay(Minion target)
+	    {
+            return base.CanPlay();
+	    }
+
+	    public void Play(Hero target)
 		{
             Owner.GainArmor(1);
 			target.ReceiveDamage(1);

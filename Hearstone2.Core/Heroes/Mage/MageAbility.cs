@@ -19,7 +19,12 @@ namespace Hearstone2.Core.Heroes.Mage
 			base.Play();
 		}
 
-		public void Play(Hero target)
+	    public bool CanPlay(Minion target)
+	    {
+            return base.CanPlay();
+	    }
+
+	    public void Play(Hero target)
 		{
 			target.ReceiveDamage(1);
 			base.Play();

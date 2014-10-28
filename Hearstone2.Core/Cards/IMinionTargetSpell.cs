@@ -3,5 +3,7 @@
     public interface IMinionTargetSpell
     {
         void Play(Minion target);
+
+        bool CanPlay(Minion target);
     }
 }
