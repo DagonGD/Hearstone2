@@ -54,6 +54,7 @@
     <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\BaseGameComponent.cs" />
     <Compile Include="Components\DeckComponent.cs" />
     <Compile Include="Components\HeroAbilityComponent.cs" />
     <Compile Include="Components\HeroAvatarComponent.cs" />

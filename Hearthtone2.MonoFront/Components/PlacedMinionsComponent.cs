@@ -35,27 +35,45 @@ namespace Hearthtone2.MonoFront.Components
 		public override void Update(GameTime gameTime)
 		{
             _placedCards.Clear();
-			_placedCards.AddRange(_player.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, _position.Y, PlacedCard.Width, PlacedCard.Height) }));
+			_placedCards.AddRange(_player.PlacedMinions.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 200, _position.Y, PlacedCard.Width, PlacedCard.Height), Color = Color.White }));
 
 		    
                 var newMouseState = Mouse.GetState();
                 var targetCard = _placedCards.FirstOrDefault(c => c.Position.Contains(newMouseState.Position));
+				var taunts = _placedCards.Where(c => ((Minion)c.Card).IsTaunt).ToList();
 
                 if (targetCard != null)
                 {
-					if (_game.Table.CurrentPlayer == _player && _player.IsAlive)
-                    {
-                        targetCard.Color = ((Minion) targetCard.Card).CanFight ? Color.LightGreen : Color.Red;
-                    }
+					var targetMinion = (Minion)targetCard.Card;
+
+	                switch (_game.CurrentGameMode)
+	                {
+		                case GameMode.SelectCard:
+							if (_game.Table.CurrentPlayer == _player && _player.IsAlive)
+							{
+								targetCard.Color = ((Minion)targetCard.Card).CanFight ? Color.LightGreen : Color.Red;
+							}
+
+			                break;
+		                case GameMode.SelectTarget:
+			                if (targetMinion.IsTaunt || !taunts.Any() || _game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
+			                {
+				                targetCard.Color = Color.LightGreen;
+			                }
+			                else
+			                {
+				                targetCard.Color = Color.Red;
+								taunts.ForEach(t => t.Color = Color.LightGreen);
+			                }
+			                break;
+	                }
 
                     if (newMouseState.LeftButton == ButtonState.Pressed && _oldMouseState.LeftButton == ButtonState.Released)
                     {
-                        var minion = (Minion)targetCard.Card;
-
                         switch (_game.CurrentGameMode)
                         {
                             case GameMode.SelectCard:
-								if (minion.CanFight && _game.Table.CurrentPlayer == _player && _player.IsAlive)
+								if (targetMinion.CanFight && _game.Table.CurrentPlayer == _player && _player.IsAlive)
                                 {
                                     _game.CurrentlyPlayingCard = targetCard;
                                     _game.CurrentGameMode = GameMode.SelectTarget;
@@ -65,15 +83,22 @@ namespace Hearthtone2.MonoFront.Components
                             case GameMode.SelectTarget:
                                 if (_game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
                                 {
-                                    ((IMinionTargetSpell)_game.CurrentlyPlayingCard.Card).Play(minion);
+                                    ((IMinionTargetSpell)_game.CurrentlyPlayingCard.Card).Play(targetMinion);
                                     _game.CurrentlyPlayingCard = null;
                                     _game.CurrentGameMode = GameMode.SelectCard;
                                 } else if (_game.CurrentlyPlayingCard.Card is Minion)
                                 {
-                                    ((Minion)_game.CurrentlyPlayingCard.Card).DealDamage(targetCard.Card as Minion);
-                                    ((Minion)targetCard.Card).DealDamage(_game.CurrentlyPlayingCard.Card as Minion);
-                                    _game.CurrentlyPlayingCard = null;
-                                    _game.CurrentGameMode = GameMode.SelectCard;
+	                                if (targetMinion.IsTaunt || !taunts.Any())
+	                                {
+		                                ((Minion) _game.CurrentlyPlayingCard.Card).DealDamage(targetCard.Card as Minion);
+		                                ((Minion) targetCard.Card).DealDamage(_game.CurrentlyPlayingCard.Card as Minion);
+		                                _game.CurrentlyPlayingCard = null;
+		                                _game.CurrentGameMode = GameMode.SelectCard;
+	                                }
+	                                else
+	                                {
+		                                //Player should select taunt
+	                                }
                                 }
 
                                 _game.Table.Cleanup();
