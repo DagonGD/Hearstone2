@@ -22,7 +22,6 @@ namespace Hearthtone2.MonoFront.Components
 
 		public override void OnCardOver(PlacedCard card)
 		{
-			var taunts = PlacedCards.Where(c => ((Minion)c.Card).IsTaunt).ToList();
 			var minion = card.Card as Minion;
 
  			switch (Game.CurrentGameMode)
@@ -34,13 +33,14 @@ namespace Hearthtone2.MonoFront.Components
 					}
 			        break;
 		        case GameMode.SelectTarget:
-					if (minion.IsTaunt || !taunts.Any() || Game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
+					if (Owner.CanMinionBeATargetOfAttack(minion) || Game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
 			        {
 				        card.Color = Color.LightGreen;
 			        }
 			        else
 			        {
 				        card.Color = Color.Red;
+						var taunts = PlacedCards.Where(c => ((Minion)c.Card).IsTaunt).ToList();
 						taunts.ForEach(t => t.Color = Color.LightGreen);
 			        }
 			        break;
@@ -49,7 +49,6 @@ namespace Hearthtone2.MonoFront.Components
 
 		public override void OnCardClick(PlacedCard card)
 		{
-			var taunts = PlacedCards.Where(c => ((Minion)c.Card).IsTaunt).ToList();
 			var targetMinion = card.Card as Minion;
 
  			switch (Game.CurrentGameMode)
@@ -69,7 +68,7 @@ namespace Hearthtone2.MonoFront.Components
 					}
 					else if (Game.CurrentlyPlayingCard.Card is Minion)
                     {
-	                    if (targetMinion.IsTaunt || !taunts.Any())
+	                    if (Owner.CanMinionBeATargetOfAttack(targetMinion))
 	                    {
 							((Minion)Game.CurrentlyPlayingCard.Card).DealDamage(card.Card as Minion);
 							((Minion)card.Card).DealDamage(Game.CurrentlyPlayingCard.Card as Minion);

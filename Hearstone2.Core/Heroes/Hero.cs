@@ -65,5 +65,16 @@ namespace Hearstone2.Core.Heroes
 		{
 			Health += damage;
 		}
+
+		public bool CanMinionBeATargetOfAttack(Minion target)
+		{
+			if (target.IsTaunt)
+			{
+				return true;
+			}
+
+			var taunts = PlacedMinions.Where(c => c.IsTaunt).ToList();
+			return !taunts.Any();
+		}
 	}
 }
