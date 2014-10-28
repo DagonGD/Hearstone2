@@ -12,7 +12,7 @@ namespace Hearstone2.Core.Heroes
         public Hero Opponent { get; set; }
         public int Mana { get; set; }
 		public int MaxMana { get; set; }
-        public int Health { get; set; }
+        public int Health { get; private set; }
 
 		public Hero()
 		{
@@ -60,5 +60,10 @@ namespace Hearstone2.Core.Heroes
         {
             Health -= damage;
         }
+
+		public void Heal(int damage)
+		{
+			Health += damage;
+		}
 	}
 }
