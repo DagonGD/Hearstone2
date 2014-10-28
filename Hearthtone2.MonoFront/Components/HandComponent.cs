@@ -35,8 +35,7 @@ namespace Hearthtone2.MonoFront.Components
 
 				if (card.Card is IMinionTargetSpell)
 				{
-					Game.CurrentlyPlayingCard = card;
-					Game.CurrentGameMode = GameMode.SelectTarget;
+					Game.SelectTargetFor(card);
 				}
 			}
 		}

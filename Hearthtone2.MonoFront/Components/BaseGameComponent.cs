@@ -11,6 +11,7 @@ namespace Hearthtone2.MonoFront.Components
 		protected new readonly Hearthtone2Game Game;
 		private MouseState _oldMouseState;
 		private Texture2D _arrowTexture;
+		private KeyboardState _oldKeyboardState;
 
 		protected BaseGameComponent(Hearthtone2Game game, Rectangle position)
 			: base(game)
@@ -37,6 +38,7 @@ namespace Hearthtone2.MonoFront.Components
 		public override void Update(GameTime gameTime)
 		{
 			var newMouseState = Mouse.GetState();
+			var newKeyboardState = Keyboard.GetState();
 
 			if (Position.Contains(newMouseState.Position))
 			{
@@ -53,7 +55,16 @@ namespace Hearthtone2.MonoFront.Components
 				}
 			}
 
+			foreach (var key in newKeyboardState.GetPressedKeys())
+			{
+				if (_oldKeyboardState.IsKeyUp(key))
+				{
+					KeyPressed(key);
+				}
+			}
+
 			_oldMouseState = newMouseState;
+			_oldKeyboardState = newKeyboardState;
 
 			base.Update(gameTime);
 		}
@@ -71,6 +82,11 @@ namespace Hearthtone2.MonoFront.Components
 		public virtual void OnRightClick()
 		{
 
+		}
+
+		public virtual void KeyPressed(Keys key)
+		{
+			
 		}
 
 		/*public override void Draw(GameTime gameTime)

@@ -28,6 +28,10 @@ namespace Hearstone2.Core
 		public void NextPlayer()
 		{
 			CurrentPlayer = CurrentPlayer.Opponent;
+			CurrentPlayer.GainMana();
+			CurrentPlayer.RefreshMinions();
+			CurrentPlayer.HeroAbility.Refresh();
+			CurrentPlayer.DrawCard();
 		}
 	}
 }

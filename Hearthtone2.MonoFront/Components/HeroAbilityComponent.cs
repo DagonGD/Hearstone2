@@ -29,8 +29,7 @@ namespace Hearthtone2.MonoFront.Components
 		{
 			if (Owner.HeroAbility is IMinionTargetSpell || Owner.HeroAbility is IHeroTargetSpell)
 			{
-				Game.CurrentlyPlayingCard = new PlacedCard { Card = Owner.HeroAbility, Position = Position, Color = Color.White };
-				Game.CurrentGameMode = GameMode.SelectTarget;
+				Game.SelectTargetFor(new PlacedCard { Card = Owner.HeroAbility, Position = Position, Color = Color.White });
 			}
 			else if (Owner.HeroAbility is ISpellWithoutTarget)
 			{

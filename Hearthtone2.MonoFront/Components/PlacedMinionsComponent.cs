@@ -57,8 +57,7 @@ namespace Hearthtone2.MonoFront.Components
                 case GameMode.SelectCard:
 					if (targetMinion.CanFight && Game.Table.CurrentPlayer == Owner && Owner.IsAlive)
                     {
-						Game.CurrentlyPlayingCard = card;
-						Game.CurrentGameMode = GameMode.SelectTarget;
+						Game.SelectTargetFor(card);
                     }
 
                     break;
@@ -66,8 +65,7 @@ namespace Hearthtone2.MonoFront.Components
 					if (Game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
                     {
 						((IMinionTargetSpell)Game.CurrentlyPlayingCard.Card).Play(targetMinion);
-						Game.CurrentlyPlayingCard = null;
-						Game.CurrentGameMode = GameMode.SelectCard;
+						Game.ResetGameMode();
 					}
 					else if (Game.CurrentlyPlayingCard.Card is Minion)
                     {
@@ -75,8 +73,7 @@ namespace Hearthtone2.MonoFront.Components
 	                    {
 							((Minion)Game.CurrentlyPlayingCard.Card).DealDamage(card.Card as Minion);
 							((Minion)card.Card).DealDamage(Game.CurrentlyPlayingCard.Card as Minion);
-							Game.CurrentlyPlayingCard = null;
-							Game.CurrentGameMode = GameMode.SelectCard;
+							Game.ResetGameMode();
 	                    }
 	                    else
 	                    {

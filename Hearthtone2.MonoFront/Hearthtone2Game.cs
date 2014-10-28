@@ -20,8 +20,8 @@ namespace Hearthtone2.MonoFront
     {
 	    private readonly GraphicsDeviceManager _graphics;
 	    public Table Table;
-		public GameMode CurrentGameMode;
-		public PlacedCard CurrentlyPlayingCard;
+		public GameMode CurrentGameMode { get; private set; }
+		public PlacedCard CurrentlyPlayingCard { get;private set; }
 	    public CardFaceStorage CardFaceStorage;
         public AvatarStorage AvatarStorage;
         public AbilityStorage AbilityStorage;
@@ -55,7 +55,19 @@ namespace Hearthtone2.MonoFront
 			FontsStorage = new FontsStorage(this);
         }
 
-        /// <summary>
+		public void ResetGameMode()
+		{
+			CurrentlyPlayingCard = null;
+			CurrentGameMode = GameMode.SelectCard;
+		}
+
+		public void SelectTargetFor(PlacedCard currentlyPlayingCard)
+		{
+			CurrentlyPlayingCard = currentlyPlayingCard;
+			CurrentGameMode = GameMode.SelectTarget;
+		}
+
+		/// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
         /// related content.  Calling base.Initialize will enumerate through any components

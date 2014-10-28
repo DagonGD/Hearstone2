@@ -24,8 +24,7 @@ namespace Hearthtone2.MonoFront.Components
 				if (heroTargetSpell != null && Game.CurrentlyPlayingCard.Card.CanPlay())
 				{
 					heroTargetSpell.Play(Owner);
-					Game.CurrentGameMode = GameMode.SelectCard;
-					Game.CurrentlyPlayingCard = null;
+					Game.ResetGameMode();
 				}
 				else
 				{
@@ -33,8 +32,7 @@ namespace Hearthtone2.MonoFront.Components
 					if (minion != null && minion.CanFight)
 					{
 						minion.DealDamage(Owner);
-						Game.CurrentGameMode = GameMode.SelectCard;
-						Game.CurrentlyPlayingCard = null;
+						Game.ResetGameMode();
 					}
 				}
 			}
