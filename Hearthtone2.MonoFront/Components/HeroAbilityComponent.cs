@@ -6,63 +6,50 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Hearthtone2.MonoFront.Components
 {
-    public class HeroAbilityComponent : DrawableGameComponent
+    public class HeroAbilityComponent : BaseGameComponent
     {
         public const int Width = 90;
         public const int Height = 100;
 
         private readonly Hearthtone2Game _game;
         private readonly Hero _player;
-        private readonly Rectangle _position;
-        private MouseState _oldMouseState;
         private Color _color=Color.White;
 
         public HeroAbilityComponent(Hearthtone2Game game, Hero player, Point position)
-            : base(game)
+			: base(game, new Rectangle(position.X, position.Y, Width, Height))
         {
             _game = game;
             _player = player;
-            _position = new Rectangle(position.X, position.Y, Width, Height);
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            var newMouseState = Mouse.GetState();
+        public override void OnMouseOver()
+		{
+			if (_game.CurrentGameMode == GameMode.SelectCard && _game.Table.CurrentPlayer == _player)
+			{
+				_color = _player.HeroAbility.CanPlay() ? Color.LightGreen : Color.Red;
+			}
+		}
 
-            if (_game.CurrentGameMode == GameMode.SelectCard && _game.Table.CurrentPlayer == _player)
-            {
-                _color = _player.HeroAbility.CanPlay() ? Color.LightGreen : Color.Red;
+		public override void OnClick()
+		{
+			if (_player.HeroAbility is IMinionTargetSpell || _player.HeroAbility is IHeroTargetSpell)
+			{
+				_game.CurrentlyPlayingCard = new PlacedCard { Card = _player.HeroAbility, Position = Position, Color = Color.White };
+				_game.CurrentGameMode = GameMode.SelectTarget;
+			}
+			else if (_player.HeroAbility is ISpellWithoutTarget)
+			{
+				((ISpellWithoutTarget)_player.HeroAbility).Play();
+			}
 
-                if (_position.Contains(newMouseState.Position))
-                {
-                    if (newMouseState.LeftButton == ButtonState.Pressed &&_oldMouseState.LeftButton == ButtonState.Released)
-                    {
-	                    if (_player.HeroAbility is IMinionTargetSpell || _player.HeroAbility is IHeroTargetSpell)
-	                    {
-							_game.CurrentlyPlayingCard = new PlacedCard { Card = _player.HeroAbility, Position = _position, Color = Color.White };
-							_game.CurrentGameMode = GameMode.SelectTarget;
-	                    }
-	                    else if(_player.HeroAbility is ISpellWithoutTarget)
-	                    {
-		                    ((ISpellWithoutTarget)_player.HeroAbility).Play();
-	                    }
-                    }
-                }
-                else
-                {
-                    _color = Color.White;
-                }
-            }
-
-            _oldMouseState = newMouseState;
-            base.Update(gameTime);
-        }
+			base.OnClick();
+		}
 
         public override void Draw(GameTime gameTime)
         {
             var spriteBatch = new SpriteBatch(_game.GraphicsDevice);
             spriteBatch.Begin();
-            spriteBatch.Draw(_game.AbilityStorage.GetAbility(_player.GetType()), _position, _color);
+            spriteBatch.Draw(_game.AbilityStorage.GetAbility(_player.GetType()), Position, _color);
             spriteBatch.End();
 
             base.Draw(gameTime);

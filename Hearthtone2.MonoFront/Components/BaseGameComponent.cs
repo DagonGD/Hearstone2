@@ -5,16 +5,13 @@ namespace Hearthtone2.MonoFront.Components
 {
 	public abstract class BaseGameComponent: DrawableGameComponent
 	{
-		public abstract int Width { get; }
-		public abstract int Height { get; }
-
-		private readonly Rectangle _position;
+		protected readonly Rectangle Position;
 		private MouseState _oldMouseState;
 
-		protected BaseGameComponent(Game game, Point position)
+		protected BaseGameComponent(Game game, Rectangle position)
 			: base(game)
 		{
-			_position = new Rectangle(position.X, position.Y, Width, Height);
+			Position = position;
 		}
 
 		public override void Initialize()
@@ -28,7 +25,7 @@ namespace Hearthtone2.MonoFront.Components
 		{
 			var newMouseState = Mouse.GetState();
 
-			if (_position.Contains(newMouseState.Position))
+			if (Position.Contains(newMouseState.Position))
 			{
 				OnMouseOver();
 
