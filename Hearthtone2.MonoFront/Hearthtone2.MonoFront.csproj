@@ -51,6 +51,7 @@
     <Content Include="Content\Heroes\Mage\Avatar.png" />
     <Content Include="Content\Heroes\Mage\Cards\Fireball.png" />
     <Content Include="Content\Heroes\Neutral\Cards\BluegillWarrior.png" />
+    <Content Include="Content\Misc\ManaCrystal.png" />
     <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -60,10 +61,13 @@
     <Compile Include="Components\DeckComponent.cs" />
     <Compile Include="Components\HeroAbilityComponent.cs" />
     <Compile Include="Components\HeroAvatarComponent.cs" />
+    <Compile Include="Components\ManaCrystalsComponent.cs" />
     <Compile Include="Content\AvatarStorage.cs" />
     <Compile Include="Content\AbilityStorage.cs" />
     <Compile Include="Content\Font.cs" />
     <Compile Include="Content\FontsStorage.cs" />
+    <Compile Include="Content\MiscImageStorage.cs" />
+    <Compile Include="Extensions\RectangleExtension.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="Components\HandComponent.cs" />
     <Compile Include="Components\PlacedCard.cs" />

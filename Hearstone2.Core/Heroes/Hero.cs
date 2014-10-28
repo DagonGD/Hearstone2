@@ -14,7 +14,7 @@ namespace Hearstone2.Core.Heroes
 		public int MaxMana { get; set; }
         public int Health { get; private set; }
 
-		public Hero()
+	    protected Hero()
 		{
 			Hand = new List<Card>();
 			Deck = new List<Card>();
@@ -32,8 +32,11 @@ namespace Hearstone2.Core.Heroes
 
 		public void GainMana()
 		{
-			MaxMana++;
-			Mana = MaxMana;
+		    if (MaxMana < 10)
+		    {
+		        MaxMana++;
+		    }
+		    Mana = MaxMana;
 		}
 
 		public void DrawCard()
