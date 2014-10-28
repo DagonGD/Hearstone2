@@ -7,6 +7,7 @@ namespace Hearstone2.Core.Cards
 		public abstract string Title { get; }
 		public abstract int ManaCost { get; }
 		public Hero Owner { get; set; }
+        public virtual bool CanBeInDeck { get { return true; } }
 
 		/// <summary>
 		/// To play any card we need to spend mana

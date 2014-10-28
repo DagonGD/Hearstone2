@@ -38,7 +38,8 @@ namespace Hearthtone2.MonoFront.Components
 				if ((card.Card is Minion || card.Card is ISpellWithoutTarget) && card.Card.CanPlay())
 				{
 					card.Card.Play();
-				}
+                    Game.Table.Cleanup();
+                }
 
 				if (card.Card is IMinionTargetSpell)
 				{

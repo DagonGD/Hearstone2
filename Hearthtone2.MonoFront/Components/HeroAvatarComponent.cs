@@ -24,6 +24,7 @@ namespace Hearthtone2.MonoFront.Components
 				if (heroTargetSpell != null && Game.CurrentlyPlayingCard.Card.CanPlay())
 				{
 					heroTargetSpell.Play(Owner);
+                    Game.Table.Cleanup();
 					Game.ResetGameMode();
 				}
 				else

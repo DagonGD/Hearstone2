@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Hearstone2.Core.Cards;
 
@@ -105,5 +106,11 @@ namespace Hearstone2.Core.Heroes
 			var taunts = PlacedMinions.Where(c => c.IsTaunt).ToList();
 			return !taunts.Any();
 		}
+
+        public void RandomizeDeck()
+        {
+            var rand = new Random();
+            Deck = Deck.OrderBy(c => rand.Next()).ToList();
+        }
 	}
 }

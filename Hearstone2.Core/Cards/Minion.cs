@@ -76,5 +76,15 @@ namespace Hearstone2.Core.Cards
 		public virtual bool IsTaunt { get { return false; } }
 		public virtual bool IsCharge { get { return false; } }
 		#endregion
+
+	    public void Heal(int damage)
+	    {
+	        Health += damage;
+
+            if (Health > BaseHealth)
+            {
+                Health = BaseHealth;
+            }
+	    }
 	}
 }

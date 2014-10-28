@@ -40,11 +40,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\Card.cs" />
+    <Compile Include="Cards\Druid\HealingTouch.cs" />
     <Compile Include="Cards\Druid\IronbarkProtector.cs" />
+    <Compile Include="Cards\Druid\Swipe.cs" />
+    <Compile Include="Cards\Druid\WildGrowth.cs" />
     <Compile Include="Cards\IHeroTargetSpell.cs" />
     <Compile Include="Cards\IMinionTargetSpell.cs" />
     <Compile Include="Cards\ISpellWithoutTarget.cs" />
+    <Compile Include="Cards\Mage\ArcaneExplosion.cs" />
+    <Compile Include="Cards\Mage\ArcaneIntellect.cs" />
     <Compile Include="Cards\Mage\Fireball.cs" />
+    <Compile Include="Cards\Mage\MirrorImage.cs" />
+    <Compile Include="Cards\Mage\MirrorImages.cs" />
     <Compile Include="Cards\ManaCostCard.cs" />
     <Compile Include="Cards\Minion.cs" />
     <Compile Include="Cards\Neutral\BluegillWarrior.cs" />

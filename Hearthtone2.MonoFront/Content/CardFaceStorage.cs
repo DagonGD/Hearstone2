@@ -20,8 +20,18 @@ namespace Hearthtone2.MonoFront.Content
 
 		public void LoadContent()
 		{
-			_cardFaces.Add(typeof(IronbarkProtector), _game.Content.Load<Texture2D>("Heroes\\Druid\\Cards\\IronbarkProtector"));
-			_cardFaces.Add(typeof(Fireball), _game.Content.Load<Texture2D>("Heroes\\Mage\\Cards\\Fireball"));
+            _cardFaces.Add(typeof(HealingTouch), _game.Content.Load<Texture2D>("Heroes\\Druid\\Cards\\HealingTouch"));
+            _cardFaces.Add(typeof(IronbarkProtector), _game.Content.Load<Texture2D>("Heroes\\Druid\\Cards\\IronbarkProtector"));
+            _cardFaces.Add(typeof(Swipe), _game.Content.Load<Texture2D>("Heroes\\Druid\\Cards\\Swipe"));
+            _cardFaces.Add(typeof(WildGrowth), _game.Content.Load<Texture2D>("Heroes\\Druid\\Cards\\WildGrowth"));
+
+            _cardFaces.Add(typeof(ArcaneExplosion), _game.Content.Load<Texture2D>("Heroes\\Mage\\Cards\\ArcaneExplosion"));
+            _cardFaces.Add(typeof(ArcaneIntellect), _game.Content.Load<Texture2D>("Heroes\\Mage\\Cards\\ArcaneIntellect"));
+            _cardFaces.Add(typeof(Fireball), _game.Content.Load<Texture2D>("Heroes\\Mage\\Cards\\Fireball"));
+            _cardFaces.Add(typeof(MirrorImage), _game.Content.Load<Texture2D>("Heroes\\Mage\\Cards\\MirrorImage"));
+            _cardFaces.Add(typeof(MirrorImages), _game.Content.Load<Texture2D>("Heroes\\Mage\\Cards\\MirrorImages"));
+
+
 			_cardFaces.Add(typeof(BluegillWarrior), _game.Content.Load<Texture2D>("Heroes\\Neutral\\Cards\\BluegillWarrior"));
 		}
 

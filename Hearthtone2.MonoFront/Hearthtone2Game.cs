@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Hearstone2.Core;
 using Hearstone2.Core.Cards;
 using Hearstone2.Core.Cards.Druid;
@@ -42,13 +44,16 @@ namespace Hearthtone2.MonoFront
 			Table = new Table(
 				new Druid
 				{
-					Deck = new List<Card> { new BluegillWarrior(), new IronbarkProtector(), new BluegillWarrior(), new IronbarkProtector() }
+                    Deck = new List<Card> { new BluegillWarrior(), new BluegillWarrior(), new WildGrowth(), new WildGrowth(), new Swipe(), new Swipe(), new HealingTouch(), new HealingTouch(), new IronbarkProtector(), new IronbarkProtector() }
 				},
 				new Mage
 				{
-					Deck = new List<Card> { new Fireball(), new BluegillWarrior(), new Fireball(), new Fireball(), new Fireball(), new Fireball() }
+                    Deck = new List<Card> { new MirrorImages(), new MirrorImages(), new BluegillWarrior(), new BluegillWarrior(), new ArcaneExplosion(), new ArcaneExplosion(), new ArcaneIntellect(), new ArcaneIntellect(), new Fireball(), new Fireball() }
 				});
 
+            Table.Player1.RandomizeDeck();
+            Table.Player2.RandomizeDeck();
+            
 			CurrentGameMode = GameMode.SelectCard;
 			CardFaceStorage = new CardFaceStorage(this);
             AvatarStorage = new AvatarStorage(this);
