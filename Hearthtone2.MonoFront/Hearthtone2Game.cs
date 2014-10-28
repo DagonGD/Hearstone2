@@ -10,6 +10,7 @@ using Hearstone2.Core.Heroes.Druid;
 using Hearstone2.Core.Heroes.Mage;
 using Hearthtone2.MonoFront.Components;
 using Hearthtone2.MonoFront.Content;
+using Hearthtone2.MonoFront.Drawings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -29,6 +30,7 @@ namespace Hearthtone2.MonoFront
         public AbilityStorage AbilityStorage;
 	    public FontsStorage FontsStorage;
         public MiscImageStorage MiscImageStorage;
+        public CardDrawer CardDrawer;
 
         public Hearthtone2Game()
         {
@@ -60,6 +62,7 @@ namespace Hearthtone2.MonoFront
             AbilityStorage = new AbilityStorage(this);
 			FontsStorage = new FontsStorage(this);
             MiscImageStorage = new MiscImageStorage(this);
+            CardDrawer = new CardDrawer(this);
         }
 
 		public void ResetGameMode()

@@ -9,6 +9,7 @@ namespace Hearthtone2.MonoFront.Content
 
         private readonly Hearthtone2Game _game;
         private Texture2D _manaCrystal;
+        private Texture2D _emptyCard;
 
         public MiscImageStorage(Hearthtone2Game game)
         {
@@ -18,6 +19,12 @@ namespace Hearthtone2.MonoFront.Content
         public void LoadContent()
         {
             _manaCrystal = _game.Content.Load<Texture2D>("Misc\\ManaCrystal");
+            _emptyCard = _game.Content.Load<Texture2D>("Misc\\EmptyCard");
+        }
+
+        public Texture2D GetEmptyCard()
+        {
+            return _emptyCard;
         }
 
         public Texture2D GetManaCrystalImage()

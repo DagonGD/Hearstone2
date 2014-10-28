@@ -58,6 +58,7 @@
     <Content Include="Content\Heroes\Mage\Cards\MirrorImage.png" />
     <Content Include="Content\Heroes\Mage\Cards\MirrorImages.png" />
     <Content Include="Content\Heroes\Neutral\Cards\BluegillWarrior.png" />
+    <Content Include="Content\Misc\EmptyCard.png" />
     <Content Include="Content\Misc\ManaCrystal.png" />
     <Content Include="SDL.dll" />
   </ItemGroup>
@@ -74,6 +75,7 @@
     <Compile Include="Content\Font.cs" />
     <Compile Include="Content\FontsStorage.cs" />
     <Compile Include="Content\MiscImageStorage.cs" />
+    <Compile Include="Drawings\CardDrawer.cs" />
     <Compile Include="Extensions\RectangleExtension.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="Components\HandComponent.cs" />

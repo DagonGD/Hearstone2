@@ -91,7 +91,7 @@ namespace Hearthtone2.MonoFront.Components
             spriteBatch.Begin();
             foreach (var card in PlacedCards)
             {
-				spriteBatch.Draw(Game.CardFaceStorage.GetCardFace(card.Card.GetType()), card.Position, card.Color);
+                Game.CardDrawer.Draw(card, spriteBatch);
             }
             spriteBatch.End();
 
