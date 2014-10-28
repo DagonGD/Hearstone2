@@ -33,7 +33,7 @@ namespace Hearthtone2.MonoFront.Components
 					}
 			        break;
 		        case GameMode.SelectTarget:
-					if (Owner.CanMinionBeATargetOfAttack(minion) || Game.CurrentlyPlayingCard.Card is IMinionTargetSpell)
+					if (Owner.CanMinionBeATargetOfAttack(minion) || Game.CurrentlyPlayingCard.Card is IMinionTargetSpell && ((IMinionTargetSpell)Game.CurrentlyPlayingCard.Card).CanPlay(minion))
 			        {
 				        card.Color = Color.LightGreen;
 			        }

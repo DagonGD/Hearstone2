@@ -22,7 +22,7 @@ namespace Hearstone2.Core.Heroes.Druid
 
 	    public bool CanPlay(Minion target)
 	    {
-            return base.CanPlay();
+	        return target.Owner.CanMinionBeATargetOfAttack(target) && base.CanPlay();
 	    }
 
 	    public void Play(Hero target)
