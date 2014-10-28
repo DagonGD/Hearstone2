@@ -5,38 +5,36 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Hearthtone2.MonoFront.Components
 {
-    public class HeroAbilityComponent : BaseGameComponent
+    public class HeroAbilityComponent : BaseOwnedComponent
     {
         public const int Width = 90;
         public const int Height = 100;
 
-        private readonly Hero _player;
         private Color _color=Color.White;
 
-        public HeroAbilityComponent(Hearthtone2Game game, Hero player, Point position)
-			: base(game, new Rectangle(position.X, position.Y, Width, Height))
+        public HeroAbilityComponent(Hearthtone2Game game, Hero owner, Point position)
+			: base(game, owner, new Rectangle(position.X, position.Y, Width, Height))
         {
-            _player = player;
         }
 
         public override void OnMouseOver(Point position)
 		{
-			if (Game.CurrentGameMode == GameMode.SelectCard && Game.Table.CurrentPlayer == _player)
+			if (Game.CurrentGameMode == GameMode.SelectCard && Game.Table.CurrentPlayer == Owner)
 			{
-				_color = _player.HeroAbility.CanPlay() ? Color.LightGreen : Color.Red;
+				_color = Owner.HeroAbility.CanPlay() ? Color.LightGreen : Color.Red;
 			}
 		}
 
 		public override void OnClick(Point position)
 		{
-			if (_player.HeroAbility is IMinionTargetSpell || _player.HeroAbility is IHeroTargetSpell)
+			if (Owner.HeroAbility is IMinionTargetSpell || Owner.HeroAbility is IHeroTargetSpell)
 			{
-				Game.CurrentlyPlayingCard = new PlacedCard { Card = _player.HeroAbility, Position = Position, Color = Color.White };
+				Game.CurrentlyPlayingCard = new PlacedCard { Card = Owner.HeroAbility, Position = Position, Color = Color.White };
 				Game.CurrentGameMode = GameMode.SelectTarget;
 			}
-			else if (_player.HeroAbility is ISpellWithoutTarget)
+			else if (Owner.HeroAbility is ISpellWithoutTarget)
 			{
-				((ISpellWithoutTarget)_player.HeroAbility).Play();
+				((ISpellWithoutTarget)Owner.HeroAbility).Play();
 			}
 
 			base.OnClick(position);
@@ -46,7 +44,7 @@ namespace Hearthtone2.MonoFront.Components
         {
 			var spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             spriteBatch.Begin();
-			spriteBatch.Draw(Game.AbilityStorage.GetAbility(_player.GetType()), Position, _color);
+			spriteBatch.Draw(Game.AbilityStorage.GetAbility(Owner.GetType()), Position, _color);
             spriteBatch.End();
 
             base.Draw(gameTime);

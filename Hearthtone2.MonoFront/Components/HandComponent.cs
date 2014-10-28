@@ -8,17 +8,14 @@ namespace Hearthtone2.MonoFront.Components
 {
 	public class HandComponent: BaseCardGameComponent
 	{
-		private readonly Hero _player;
-
-	    public HandComponent(Hearthtone2Game game, Hero player, Point position)
-			: base(game, new Rectangle(position.X, position.Y, game.GraphicsDevice.Viewport.Width, PlacedCard.Height))
+		public HandComponent(Hearthtone2Game game, Hero owner, Point position)
+			: base(game, owner, new Rectangle(position.X, position.Y, game.GraphicsDevice.Viewport.Width, PlacedCard.Height))
 		{
-			_player = player;
 		}
 
         public override void Update(GameTime gameTime)
 		{
-		    InitCards(_player.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, Position.Y, PlacedCard.Width, PlacedCard.Height) }).ToList());
+			InitCards(Owner.Hand.Select((card, index) => new PlacedCard { Card = card, Position = new Rectangle(index * 135, Position.Y, PlacedCard.Width, PlacedCard.Height) }).ToList());
 			base.Update(gameTime);
 		}
 

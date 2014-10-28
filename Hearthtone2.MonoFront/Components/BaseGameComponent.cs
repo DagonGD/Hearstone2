@@ -73,7 +73,7 @@ namespace Hearthtone2.MonoFront.Components
 
 		}
 
-		public override void Draw(GameTime gameTime)
+		/*public override void Draw(GameTime gameTime)
 		{
 			var spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 			spriteBatch.Begin();
@@ -84,9 +84,9 @@ namespace Hearthtone2.MonoFront.Components
 			spriteBatch.End();
 
 			base.Draw(gameTime);
-		}
+		}*/
 
-		void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
+		protected void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
 		{
 			Vector2 edge = end - start;
 			// calculate angle to rotate line

@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Components\BaseCardGameComponent.cs" />
     <Compile Include="Components\BaseGameComponent.cs" />
+    <Compile Include="Components\BaseOwnedComponent.cs" />
     <Compile Include="Components\DeckComponent.cs" />
     <Compile Include="Components\HeroAbilityComponent.cs" />
     <Compile Include="Components\HeroAvatarComponent.cs" />

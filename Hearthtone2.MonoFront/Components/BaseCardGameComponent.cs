@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Hearstone2.Core.Heroes;
 using Microsoft.Xna.Framework;
 
 namespace Hearthtone2.MonoFront.Components
 {
-	public class BaseCardGameComponent : BaseGameComponent
+	public class BaseCardGameComponent : BaseOwnedComponent
 	{
 		protected List<PlacedCard> PlacedCards;
 
-		public BaseCardGameComponent(Hearthtone2Game game, Rectangle position)
-			: base(game, position)
+		public BaseCardGameComponent(Hearthtone2Game game, Hero owner, Rectangle position)
+			: base(game, owner, position)
 		{
 		}
 

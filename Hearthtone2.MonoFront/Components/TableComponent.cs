@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Hearthtone2.MonoFront.Components
 {
-	public class TableComponent : DrawableGameComponent
+	public class TableComponent : BaseGameComponent
 	{
 		private readonly Hearthtone2Game _game;
 		private KeyboardState _oldKeyboardState;
@@ -12,7 +12,7 @@ namespace Hearthtone2.MonoFront.Components
 	    private Texture2D _backGround;
 
 		public TableComponent(Hearthtone2Game game)
-			: base(game)
+			: base(game, new Rectangle(0,0,game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height))
 		{
 			_game = game;
 			

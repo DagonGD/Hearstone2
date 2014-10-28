@@ -8,17 +8,14 @@ namespace Hearthtone2.MonoFront.Components
 {
 	public class PlacedMinionsComponent : BaseCardGameComponent
 	{
-		private readonly Hero _player;
-
-	    public PlacedMinionsComponent(Hearthtone2Game game, Hero player, Point position)
-			: base(game, new Rectangle(position.X, position.Y, game.GraphicsDevice.Viewport.Width, PlacedCard.Height))
+		public PlacedMinionsComponent(Hearthtone2Game game, Hero owner, Point position)
+			: base(game, owner, new Rectangle(position.X, position.Y, game.GraphicsDevice.Viewport.Width, PlacedCard.Height))
 		{
-			_player = player;
 		}
 
         public override void Update(GameTime gameTime)
 		{
-			InitCards(_player.PlacedMinions.Select((card, index) =>new PlacedCard{Card = card,Position = new Rectangle(index*200, Position.Y, PlacedCard.Width, PlacedCard.Height),Color = Color.White}).ToList());
+			InitCards(Owner.PlacedMinions.Select((card, index) =>new PlacedCard{Card = card,Position = new Rectangle(index*200, Position.Y, PlacedCard.Width, PlacedCard.Height),Color = Color.White}).ToList());
 
 			base.Update(gameTime);
 		}
@@ -31,7 +28,7 @@ namespace Hearthtone2.MonoFront.Components
  			switch (Game.CurrentGameMode)
 	        {
 		        case GameMode.SelectCard:
-					if (Game.Table.CurrentPlayer == _player && _player.IsAlive)
+					if (Game.Table.CurrentPlayer == Owner && Owner.IsAlive)
 					{
 						card.Color = ((Minion)card.Card).CanFight ? Color.LightGreen : Color.Red;
 					}
@@ -58,7 +55,7 @@ namespace Hearthtone2.MonoFront.Components
  			switch (Game.CurrentGameMode)
             {
                 case GameMode.SelectCard:
-					if (targetMinion.CanFight && Game.Table.CurrentPlayer == _player && _player.IsAlive)
+					if (targetMinion.CanFight && Game.Table.CurrentPlayer == Owner && Owner.IsAlive)
                     {
 						Game.CurrentlyPlayingCard = card;
 						Game.CurrentGameMode = GameMode.SelectTarget;
