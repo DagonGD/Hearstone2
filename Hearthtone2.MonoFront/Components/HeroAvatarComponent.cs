@@ -44,7 +44,12 @@ namespace Hearthtone2.MonoFront.Components
             spriteBatch.Begin();
 			spriteBatch.Draw(Game.AvatarStorage.GetAvatar(Owner.GetType()), Position, Owner.Health > 0 ? Color.White : Color.Red);
 			spriteBatch.DrawString(Game.FontsStorage.GetFont(Font.Arial), Owner.Health.ToString(), new Vector2(Position.X, Position.Y), Color.White);
-			spriteBatch.DrawString(Game.FontsStorage.GetFont(Font.Arial), Owner.Mana.ToString() + "/" + Owner.MaxMana.ToString(), new Vector2(Position.X + 4 * Width / 5, Position.Y), Color.White);
+            
+            if (Owner.Armor > 0)
+            {
+                spriteBatch.DrawString(Game.FontsStorage.GetFont(Font.Arial), Owner.Armor.ToString(), new Vector2(Position.X + Width-5, Position.Y), Color.White);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

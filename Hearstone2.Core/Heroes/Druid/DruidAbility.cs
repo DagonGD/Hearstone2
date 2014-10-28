@@ -15,15 +15,15 @@ namespace Hearstone2.Core.Heroes.Druid
 
 		public void Play(Minion target)
 		{
+            Owner.GainArmor(1);
 			target.ReceiveDamage(1);
 			target.DealDamage(Owner);
-			Owner.Heal(1);
 		}
 
 		public void Play(Hero target)
 		{
+            Owner.GainArmor(1);
 			target.ReceiveDamage(1);
-			Owner.Heal(1);
 		}
 	}
 }

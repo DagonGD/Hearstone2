@@ -6,6 +6,8 @@ namespace Hearstone2.Core.Heroes
 {
 	public abstract class Hero
 	{
+	    public const int BaseHealth = 30;
+
 		public List<Card> Hand { get; private set; }
 		public List<Card> Deck { get; set; }
 		public List<Minion> PlacedMinions { get; private set; }
@@ -13,6 +15,7 @@ namespace Hearstone2.Core.Heroes
         public int Mana { get; set; }
 		public int MaxMana { get; set; }
         public int Health { get; private set; }
+        public int Armor { get; private set; }
 
 	    protected Hero()
 		{
@@ -20,7 +23,8 @@ namespace Hearstone2.Core.Heroes
 			Deck = new List<Card>();
 			PlacedMinions = new List<Minion>();
 			MaxMana = 0;
-		    Health = 30;
+            Health = BaseHealth;
+	        Armor = 0;
 		}
 
 		public abstract HeroAbility HeroAbility { get; }
@@ -61,13 +65,35 @@ namespace Hearstone2.Core.Heroes
 
         public void ReceiveDamage(int damage)
         {
+            if (damage <= Armor)
+            {
+                Armor -= damage;
+                return;
+            }
+
+            if (Armor > 0)
+            {
+                Health -= damage - Armor;
+                Armor = 0;
+                return;
+            }
+
             Health -= damage;
         }
 
 		public void Heal(int damage)
 		{
 			Health += damage;
+            if (Health > BaseHealth)
+            {
+                Health = BaseHealth;
+            }
 		}
+
+        public void GainArmor(int armor)
+        {
+            Armor += armor;
+        }
 
 		public bool CanMinionBeATargetOfAttack(Minion target)
 		{
